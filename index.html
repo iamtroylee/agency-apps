@@ -9,23 +9,33 @@
 <meta name="theme-color" content="#111827">
 <link rel="manifest" href="manifest-board.json">
 <title>Client Board</title>
-<!-- FirebaseCompat libraries -->
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 <style>
-.topbar {
-  background: #111827;
-  /* Adds padding only at the top to clear the iPhone notch/camera bar */
-  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 12px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f2f5;--sur:#fff;--sur2:#f8f9fb;--bdr:#e4e7ec;--bdr2:#d0d5dd;
+  --tx:#101828;--tx2:#344054;--tx3:#667085;--tx4:#98a2b3;
+  --bl:#2563eb;--bl-bg:#eff6ff;--gr:#059669;--gr-bg:#ecfdf5;
+  --am:#d97706;--am-bg:#fffbeb;--rd:#dc2626;--rd-bg:#fef2f2;
+  --pu:#7c3aed;--pu-bg:#f5f3ff;--cy:#0891b2;
+  --r:12px;--rsm:8px;--rxs:6px;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:40px}
-.topbar{background:#111827;padding:14px 16px 12px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+
+/* FIXED TOPBAR WITH SAFE-AREA PADDING FOR THE NOTCH / DYNAMIC ISLAND */
+.topbar{
+  background:#111827;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 12px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
 .tb-left{flex:1}
 .topbar-title{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px}
 .topbar-sub{font-size:11px;color:#6b7280;margin-top:1px;display:flex;align-items:center;gap:8px}
@@ -127,6 +137,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .info-section-title{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
 .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bg);gap:12px}
 .info-row:last-child{border-bottom:none}
+.info-key覆{font-size:13px;color:var(--tx3);flex-shrink:0}
 .info-key{font-size:13px;color:var(--tx3);flex-shrink:0}
 .info-val{font-size:13px;font-weight:600;color:var(--tx);text-align:right;word-break:break-word;max-width:65%}
 .status-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
@@ -176,7 +187,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="add-btn" onclick="openNew()">+ New Client</button>
 </div>
 
-<!-- LIST VIEW -->
 <div id="vlist" class="view active">
   <div class="list-wrap">
     <div class="list-header">
@@ -188,7 +198,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- DETAIL VIEW -->
 <div id="vdetail" class="view">
   <div class="detail-wrap">
     <div class="hero">
@@ -197,332 +206,4 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="d-meta" id="dm">—</div>
       <div class="d-badges" id="db"></div>
       <div class="prog-hero">
-        <div class="ph-top"><span class="ph-label">Onboarding progress</span><span class="ph-pct" id="dpct">0%</span></div>
-        <div class="ph-bar"><div class="ph-fill" id="dpfill" style="width:0%"></div></div>
-      </div>
-    </div>
-    <div class="tabs">
-      <div class="tab active" onclick="stab(this,'tc')">Checklist</div>
-      <div class="tab" onclick="stab(this,'tn')">Notes</div>
-      <div class="tab" onclick="stab(this,'ti')">Info</div>
-      <div class="tab" onclick="stab(this,'tb')">Billing</div>
-    </div>
-    <div id="tc" class="tab-body active"><div id="phases"></div></div>
-    <div id="tn" class="tab-body">
-      <div class="add-note">
-        <label>Add a note</label>
-        <textarea id="ni" placeholder="Follow up about logo files… chatbot tweaks needed… client mentioned spring promo…"></textarea>
-        <button onclick="addNote()">Save note</button>
-      </div>
-      <div id="nlist"></div>
-    </div>
-    <div id="ti" class="tab-body"><div id="ilist"></div></div>
-    <div id="tb" class="tab-body"><div id="blist"></div></div>
-  </div>
-</div>
-
-<!-- MODAL -->
-<div class="overlay" id="overlay" onclick="outsideClose(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title" id="mtitle">New client</div>
-    <div class="field"><label>Business name *</label><input id="fn" type="text" placeholder="e.g. Coastal Wellness Spa"></div>
-    <div class="field"><label>Owner name *</label><input id="fo" type="text" placeholder="e.g. Maria Torres"></div>
-    <div class="field"><label>Phone</label><input id="fp" type="tel" placeholder="(714) 555-0000"></div>
-    <div class="field"><label>Email</label><input id="fe" type="email" placeholder="owner@business.com"></div>
-    <div class="field"><label>Business type</label><input id="ft" type="text" placeholder="e.g. Med Spa, Chiropractor, Gym"></div>
-    <div class="field"><label>Service tier</label>
-      <select id="ftr">
-        <option value="tier1">Tier 1 — Website + Lead Capture</option>
-        <option value="tier2">Tier 2 — Website + Chatbot + Reviews</option>
-        <option value="tier3">Tier 3 — Full Stack Automation</option>
-      </select>
-    </div>
-    <div class="field"><label>Setup fee</label><input id="fsu" type="text" placeholder="e.g. $800"></div>
-    <div class="field"><label>Monthly retainer</label><input id="fmo" type="text" placeholder="e.g. $250/mo"></div>
-    <div class="field"><label>Start date</label><input id="fsd" type="date"></div>
-    <div class="field"><label>Notes (optional)</label><textarea id="fno" placeholder="How you met, first impressions, anything to remember…"></textarea></div>
-    <div class="modal-btns" id="mbtns">
-      <button class="btn-s" onclick="closeModal()">Cancel</button>
-      <button class="btn-p" onclick="saveClient()">Add client</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ── FIREBASE CONFIG ────────────────────────────────────────────────
-const firebaseConfig = {
-  apiKey: "AIzaSyCwPr_F8izAzuj3KHYyoTKuUffHf-PyGlo",
-  authDomain: "agency-apps.firebaseapp.com",
-  projectId: "agency-apps",
-  storageBucket: "agency-apps.firebasestorage.app",
-  messagingSenderId: "987600971096",
-  appId: "1:987600971096:web:99cf347e62c3279fb5f12d",
-  measurementId: "G-PD10LZ5ZQ6"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db  = firebase.firestore();
-const DOC = db.collection('board').doc('troy');
-
-// ── STATE ──────────────────────────────────────────────────────────
-let clients = [], cid = null, eid = null, saveTimer = null;
-
-// ── SYNC STATUS ────────────────────────────────────────────────────
-function setSyncStatus(s){
-  const el=document.getElementById('sync-status');
-  const map={synced:['✓ Synced','sy-gr'],saving:['↑ Saving','sy-am'],offline:['✗ Offline','sy-rd'],loading:['↓ Loading','sy-bl']};
-  if(el && map[s]) {
-    el.className=map[s][1];el.textContent=map[s][0];
-  }
-}
-
-// ── SAVE TO FIREBASE ───────────────────────────────────────────────
-function save(){
-  setSyncStatus('saving');
-  clearTimeout(saveTimer);
-  saveTimer=setTimeout(()=>{
-    DOC.set({clients},{merge:false})
-      .then(()=>setSyncStatus('synced'))
-      .catch(()=>setSyncStatus('offline'));
-  },800);
-}
-
-// ── REAL-TIME LISTENER ─────────────────────────────────────────────
-DOC.onSnapshot({includeMetadataChanges:true}, snap=>{
-  if(snap.metadata.hasPendingWrites)return;
-  if(snap.exists){
-    clients=snap.data().clients||[];
-  }
-  renderList();
-  if(cid){const c=clients.find(x=>x.id===cid);if(c)updateProg(c);}
-  setSyncStatus('synced');
-},()=>setSyncStatus('offline'));
-
-// ── PHASE DEFINITIONS ──────────────────────────────────────────────
-const PHASES=[
-  {id:'p1',label:'Find & qualify',sub:'Before first contact',color:'#2563eb',tasks:[
-    {id:'a1',t:'Search Google Maps — look for under 50 reviews, no chatbot',h:'Start with "[business type] Huntington Beach" and note what their site looks like.'},
-    {id:'a2',t:'Count their Google reviews — note the exact number',h:'Drop this in your outreach. Signals you actually looked.'},
-    {id:'a3',t:'Fill out their contact form and time the response',h:'Over 30 min (or nothing) = your opening line in outreach.'},
-    {id:'a4',t:'Note one genuine observation about their business',h:'Something real — vibe, a service, a post. Goes in your DM. Don\'t skip this.'},
-  ]},
-  {id:'p2',label:'Make first contact',sub:'Outreach to booked call',color:'#7c3aed',tasks:[
-    {id:'b1',t:'Send DM or cold email using outreach template',h:'Pick angle: after-hours lead response vs. Google reviews. 5 sentences max on DMs.'},
-    {id:'b2',t:'Follow up after 5–7 days if no reply',h:'One follow-up is standard. Two is the max.'},
-    {id:'b3',t:'Book a 20-min demo call — call it a "quick look"',h:'Not a "sales call." Zoom or coffee in HB both work.'},
-    {id:'b4',t:'Prep your 2-min screen share or Loom demo',h:'Show an anonymized setup. Seeing it converts 3x better than describing it.'},
-  ]},
-  {id:'p3',label:'Run the demo call',sub:'20 minutes to a verbal yes',color:'#d97706',tasks:[
-    {id:'c1',t:'Open with 2 diagnostic questions — no pitch yet',h:'"How do most new customers find you?" and "What\'s your busiest time of week?"'},
-    {id:'c2',t:'Show demo and narrate why it matters to them specifically',h:'"This is what your customer sees at 10pm — instant reply, qualifying question, booking."'},
-    {id:'c3',t:'Ask: "Can you see this being useful for [their business]?"',h:'Soft close before pricing. Almost everyone says yes here.'},
-    {id:'c4',t:'Present ONE tier — the right one for what you heard',h:'"For a business like yours I\'d start here." Don\'t show all three.'},
-    {id:'c5',t:'State pricing clearly — then stop talking',h:'"Setup is $[X] and $[X]/mo — includes 1 hour of changes per month." Wait.'},
-    {id:'c6',t:'Confirm next steps before hanging up',h:'"I\'ll send contract and deposit invoice today. Done within a week."'},
-  ]},
-  {id:'p4',label:'Onboard & build',sub:'Deposit to live in 7 days',color:'#059669',tasks:[
-    {id:'d1',t:'Send contract + 50% deposit invoice — same day',h:'Don\'t start work until deposit clears. Zoho Invoice + Stripe.'},
-    {id:'d2',t:'Send onboarding form link',h:'Google Form: business info, services, brand, chatbot FAQs, Google login.'},
-    {id:'d3',t:'Set up their GHL sub-account',h:'Business info, SMS number, calendar if needed.'},
-    {id:'d4',t:'Build site in GHL AI Studio',h:'Brand colors, logo, services from onboarding. 5 sections max. Mobile-first.'},
-    {id:'d5',t:'Build automations: chatbot, review requests, follow-up',h:'After-hours chatbot, post-visit review text, missed-call-text-back (Tier 2+).'},
-    {id:'d6',t:'Test everything yourself before client sees it',h:'Fill the form. Trigger chatbot. Check review request fires. Find bugs first.'},
-    {id:'d7',t:'Collect final 50% on launch day — before handing over access',h:'After access is too late.'},
-  ]},
-  {id:'p5',label:'Launch & handoff',sub:'Make them feel the win',color:'#dc2626',tasks:[
-    {id:'e1',t:'Do 30-min walkthrough call at launch',h:'Show site, chatbot, where leads appear in GHL, and the Client App on their phone.'},
-    {id:'e2',t:'Send the "How It Works" 1-pager after the call',h:'From Client Templates in the Playbook.'},
-    {id:'e3',t:'Set up recurring monthly retainer invoice in Zoho',h:'Auto-charges on the 1st. Set up now while they\'re happy.'},
-    {id:'e4',t:'Ask for a Google review right after the launch call',h:'"If you\'re happy, a quick Google review really helps my business."'},
-    {id:'e5',t:'Send Week 1 check-in text on day 7',h:'"Hey [name] — checking in! How\'s everything running?"'},
-    {id:'e6',t:'Ask for a referral at the 30-day mark',h:'"I\'m looking to take on 2 more HB businesses this month — know anyone?"'},
-  ]},
-  {id:'p6',label:'Monthly service',sub:'Keep them happy and paying',color:'#0891b2',tasks:[
-    {id:'f1',t:'Send monthly results snapshot text on the 1st',h:'Leads, new reviews, chatbot chats. 5 minutes. Reminds them it\'s working.'},
-    {id:'f2',t:'Track change requests and time spent',h:'If they regularly hit the included hour, that\'s your upgrade conversation.'},
-    {id:'f3',t:'Quarterly 15-min check-in call',h:'What\'s working, what\'s changed, plant upgrade seed.'},
-    {id:'f4',t:'Pitch tier upgrade at 90 days',h:'"Based on what I\'m seeing, I think you\'d get a lot out of adding [X]."'},
-    {id:'f5',t:'Roll to month-to-month after 3-month minimum',h:'"Everything\'s great — want to keep going month-to-month?" Almost everyone says yes.'},
-    {id:'f6',t:'Ask for 60-sec video testimonial at 90 days',h:'"Would you record a quick video saying what you\'ve noticed?"'},
-  ]}
-];
-
-// ── UTILS ──────────────────────────────────────────────────────────
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function tierLabel(t){return{tier1:'Tier 1',tier2:'Tier 2',tier3:'Tier 3'}[t]||t}
-function tierClass(t){return{tier1:'t1',tier2:'t2',tier3:'t3'}[t]||'t1'}
-function statusLabel(s){return{new:'New',building:'Building',live:'Live',monthly:'Monthly',churned:'Churned'}[s]||s}
-function spClass(s){return{new:'sp-new',building:'sp-building',live:'sp-live',monthly:'sp-monthly',churned:'sp-churned'}[s]||'sp-new'}
-function dbSClass(s){return{new:'db-s-new',building:'db-s-building',live:'db-s-live',monthly:'db-s-monthly',churned:'db-s-churned'}[s]||'db-s-new'}
-
-function progress(c){
-  const total=PHASES.reduce((a,p)=>a+p.tasks.length,0);
-  const done=Object.values(c.tasks||{}).filter(Boolean).length;
-  return total?Math.round(done/total*100):0;
-}
-
-function phaseProg(c,pid){
-  const p=PHASES.find(x=>x.id===pid);if(!p)return{done:0,total:0};
-  const done=p.tasks.filter(t=>c.tasks && c.tasks[t.id]).length;
-  return{done,total:p.tasks.length};
-}
-
-function updateProg(c){
-  const pct=progress(c);
-  const pctEl = document.getElementById('dpct');
-  const fillEl = document.getElementById('dpfill');
-  if(pctEl) pctEl.textContent=pct+'%';
-  if(fillEl) fillEl.style.width=pct+'%';
-}
-
-function toast(msg){const t=document.getElementById('toast');if(t){t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}}
-
-// ── LIST ───────────────────────────────────────────────────────────
-function renderList(q){
-  const el=document.getElementById('clist');
-  const cc=document.getElementById('ccount');
-  const ts=document.getElementById('ts');
-  if(!el) return;
-  let vis=clients;
-  if(q){const lq=q.toLowerCase();vis=clients.filter(c=>c.name.toLowerCase().includes(lq)||(c.owner||'').toLowerCase().includes(lq)||(c.type||'').toLowerCase().includes(lq))}
-  if(cc) cc.textContent=clients.length+' client'+(clients.length!==1?'s':'');
-  if(ts) ts.textContent=clients.length+' client'+(clients.length!==1?'s':'')+' total';
-  
-  if(!clients.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">🏄</div><div class="empty-title">No clients yet</div><div class="empty-sub">Add your first client to get tracking!</div><button class="empty-btn" onclick="openNew()">Add your first client</button></div>`;
-    return;
-  }
-  if(!vis.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">No matches</div><div class="empty-sub">Try a different search query.</div></div>`;return}
-  el.innerHTML=vis.map(c=>{
-    const pct=progress(c);
-    return`<div class="client-card ${c.tier}" onclick="openClient('${c.id}')">
-      <div class="cc-top"><div class="cc-name">${esc(c.name)}</div><span class="cc-tier ${tierClass(c.tier)}">${tierLabel(c.tier)}</span></div>
-      <div class="cc-meta">${[c.owner,c.type,c.monthly?c.monthly+'/mo':''].filter(Boolean).join(' · ')}</div>
-      <div class="cc-bar"><div class="cc-fill" style="width:${pct}%"></div></div>
-      <div class="cc-footer"><span class="sp ${spClass(c.status||'new')}">${statusLabel(c.status||'new')}</span><span style="font-size:12px;color:var(--tx4)">${pct}% · →</span></div>
-    </div>`;
-  }).join('');
-}
-function filter(v){renderList(v)}
-
-// ── DETAIL ─────────────────────────────────────────────────────────
-function openClient(id){
-  cid=id;const c=clients.find(x=>x.id===id);if(!c)return;
-  document.getElementById('dn').textContent=c.name;
-  document.getElementById('dm').textContent=[c.owner,c.type,c.phone].filter(Boolean).join(' · ');
-  const s=c.status||'new';
-  document.getElementById('db').innerHTML=`<span class="db db-tier">${tierLabel(c.tier)}</span><span class="db ${dbSClass(s)}">${statusLabel(s)}</span>${c.monthly?`<span class="db db-tier">${esc(c.monthly)}/mo</span>`:''}`;
-  updateProg(c);
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));
-  document.querySelectorAll('.tab-body').forEach((t,i)=>t.classList.toggle('active',i===0));
-  renderPhases(c);renderNotes(c);renderInfo(c);renderBilling(c);
-  document.getElementById('vlist').classList.remove('active');
-  document.getElementById('vdetail').classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-}
-function goBack(){
-  cid=null;
-  document.getElementById('vdetail').classList.remove('active');
-  document.getElementById('vlist').classList.add('active');
-  renderList();window.scrollTo({top:0,behavior:'instant'});
-}
-function stab(btn,id){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-body').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');document.getElementById(id).classList.add('active');
-}
-
-// ── PHASES & TASKS ─────────────────────────────────────────────────
-function renderPhases(c){
-  const el = document.getElementById('phases');
-  if(!el) return;
-  el.innerHTML=PHASES.map((ph,pi)=>{
-    const pg=phaseProg(c,ph.id);
-    const taskListHtml = ph.tasks.map(task=>{
-      const isDone = c.tasks && c.tasks[task.id];
-      return `<div class="task">
-        <div class="cb ${isDone?'done':''}" onclick="toggleTask('${c.id}','${task.id}')"></div>
-        <div class="task-r">
-          <div class="task-title ${isDone?'done':''}">${esc(task.t)}</div>
-          <div class="task-hint">${esc(task.h)}</div>
-        </div>
-      </div>`;
-    }).join('');
-
-    return `<div class="phase">
-      <div class="phase-hdr" style="border-left: 4px solid ${ph.color}">
-        <div class="phase-info">
-          <strong>${esc(ph.label)}</strong>
-          <span>${esc(ph.sub)}</span>
-        </div>
-        <div class="phase-stat">${pg.done}/${pg.total}</div>
-      </div>
-      <div class="phase-body open">${taskListHtml}</div>
-    </div>`;
-  }).join('');
-}
-
-function toggleTask(clientId, taskId) {
-  const c = clients.find(x=>x.id===clientId);
-  if(!c) return;
-  if(!c.tasks) c.tasks = {};
-  c.tasks[taskId] = !c.tasks[taskId];
-  renderPhases(c);
-  updateProg(c);
-  save();
-}
-
-function renderNotes(c){
-  const el = document.getElementById('nlist');
-  if(el) el.innerHTML = `<div style="padding:16px; color:var(--tx3); font-size:13px; text-align:center;">Notes are synchronized.</div>`;
-}
-function renderInfo(c){
-  const el = document.getElementById('ilist');
-  if(el) el.innerHTML = `<div class="info-card"><div class="info-row"><span class="info-key">Tier Info</span><span class="info-val">${tierLabel(c.tier)}</span></div></div>`;
-}
-function renderBilling(c){
-  const el = document.getElementById('blist');
-  if(el) el.innerHTML = `<div class="billing-card"><div class="billing-row"><span class="br-l">Setup Status</span><span class="bpill bp-paid">Active</span></div></div>`;
-}
-
-// ── MODAL INTERACTIONS ─────────────────────────────────────────────
-function openNew(){
-  document.getElementById('mtitle').textContent = "New client";
-  document.getElementById('fn').value = "";
-  document.getElementById('fo').value = "";
-  document.getElementById('ft').value = "";
-  document.getElementById('overlay').classList.add('open');
-}
-function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
-function outsideClose(e){ if(e.target && e.target.id === 'overlay') closeModal(); }
-
-function saveClient(){
-  const name = document.getElementById('fn').value.trim();
-  const owner = document.getElementById('fo').value.trim();
-  if(!name || !owner) { alert("Business name and Owner name are required!"); return; }
-  
-  const newC = {
-    id: uid(),
-    name,
-    owner,
-    phone: document.getElementById('fp').value,
-    email: document.getElementById('fe').value,
-    type: document.getElementById('ft').value,
-    tier: document.getElementById('ftr').value,
-    monthly: document.getElementById('fmo').value,
-    status: 'new',
-    tasks: {}
-  };
-  
-  clients.push(newC);
-  renderList();
-  closeModal();
-  save();
-}
-</script>
-</body>
-</html>
+        <div class="ph-top"><span class="ph-label">Onboarding progress</span><span class="ph-pct" id="
