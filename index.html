@@ -65,8 +65,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:width .3s}
 .cc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--bdr)}
 .sp{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
-.sp-new{background:var(--bl-bg);color:var(--bl)}.sp-building{background:var(--pu-bg);color:var(--pu)}.sp-live{background:var(--gr-bg);color:var(--gr)}.sp-monthly{background:var(--am-bg);color:var(--am)}.sp-churned覆{background:var(--rd-bg);color:var(--rd)}
-.sp-churned{background:var(--rd-bg);color:var(--rd)}
+.sp-new{background:var(--bl-bg);color:var(--bl)}.sp-building{background:var(--pu-bg);color:var(--pu)}.sp-live{background:var(--gr-bg);color:var(--gr)}.sp-monthly{background:var(--am-bg);color:var(--am)}.sp-churned{background:var(--rd-bg);color:var(--rd)}
 .empty{text-align:center;padding:52px 24px}
 .empty-icon{font-size:48px;margin-bottom:14px}
 .empty-title{font-size:18px;font-weight:700;margin-bottom:8px}
@@ -110,13 +109,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tab.active{color:var(--bl);border-bottom-color:var(--bl)}
 .tab-body{display:none;padding:16px}.tab-body.active{display:block}
 .phase{margin-bottom:11px}
-.phase-hdr{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent}
+
+/* COLLAPSIBLE CHECKLIST CUSTOM STYLES */
+.phase-hdr{display:flex;align-items:center;gap:12px;padding:14px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent;transition:border-radius 0.15s ease}
 .phase-hdr.open{border-radius:var(--r) var(--r) 0 0;border-bottom-color:transparent;box-shadow:none}
-.phase-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
 .phase-info{flex:1}.phase-info strong{display:block;font-size:14px;font-weight:700}.phase-info span{font-size:12px;color:var(--tx3)}
+.phase-right{display:flex;align-items:center;gap:8px}
 .phase-stat{font-size:12px;font-weight:700;color:var(--tx3)}
-.phase-ch{font-size:11px;color:var(--tx4);margin-left:5px;display:inline-block;transition:transform .2s}.phase-ch.open{transform:rotate(180deg)}
-.phase-body{display:none;background:var(--sur);border:1px solid var(--bdr);border-top:none;border-radius:0 0 var(--r) var(--r)}.phase-body.open{display:block}
+.phase-chevron{font-size:10px;color:var(--tx4);transition:transform .2s ease-in-out}
+.phase-hdr.open .phase-chevron{transform:rotate(180deg)}
+.phase-body{display:none;background:var(--sur);border:1px solid var(--bdr);border-top:none;border-radius:0 0 var(--r) var(--r)}
+.phase-body.open{display:block}
+
 .task{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-bottom:1px solid var(--bg)}
 .task:last-child{border-bottom:none}
 .cb{width:22px;height:22px;border:2px solid var(--bdr2);border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .15s}
@@ -127,12 +131,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .task-title.done{color:var(--tx3);text-decoration:line-through}
 .task-hint{font-size:12px;color:var(--tx3);line-height:1.5}
 .info-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:11px;box-shadow:var(--sh)}
+.info-section-title{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
 .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bg);gap:12px}
 .info-row:last-child{border-bottom:none}
 .info-key{font-size:13px;color:var(--tx3);flex-shrink:0}
 .info-val{font-size:13px;font-weight:600;color:var(--tx);text-align:right;word-break:break-word;max-width:65%}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1f2937;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:999;transition:transform .25s;pointer-events:none;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
 @media(prefers-color-scheme:dark){
   :root{--bg:#0a0a0a;--sur:#1c1c1e;--sur2:#2c2c2e;--bdr:#2c2c2e;--bdr2:#3a3a3c;--tx:#f5f5f7;--tx2:#e5e5ea;--tx3:#98989d;--tx4:#636366;--bl-bg:#162247;--gr-bg:#0d2d1f;--am-bg:#2d1f00;--rd-bg:#2d0f0f;--pu-bg:#1e1347}
   .search,.field input,.field select,.field textarea{background:var(--sur2);color:var(--tx);border-color:var(--bdr2)}
@@ -238,6 +241,7 @@ const DOC = db.collection('board').doc('troy');
 
 // ── STATE ──────────────────────────────────────────────────────────
 let clients = [], cid = null, saveTimer = null;
+let collapsedPhases = {}; // Tracks open/close preferences per phase instance
 
 // ── SYNC STATUS ────────────────────────────────────────────────────
 function setSyncStatus(s){
@@ -381,6 +385,7 @@ function filter(v){renderList(v)}
 // ── DETAIL ─────────────────────────────────────────────────────────
 function openClient(id){
   cid=id;const c=clients.find(x=>x.id===id);if(!c)return;
+  collapsedPhases = {}; // Reset tracking states on open
   document.getElementById('dn').textContent=c.name;
   document.getElementById('dm').textContent=[c.owner,c.type,c.phone].filter(Boolean).join(' · ');
   const s=c.status||'new';
@@ -411,10 +416,12 @@ function renderPhases(c){
   if(!el) return;
   el.innerHTML=PHASES.map((ph,pi)=>{
     const pg=phaseProg(c,ph.id);
+    const isCollapsed = collapsedPhases[ph.id] === true;
+    
     const taskListHtml = ph.tasks.map(task=>{
       const isDone = c.tasks && c.tasks[task.id];
       return `<div class="task">
-        <div class="cb ${isDone?'done':''}" onclick="toggleTask('${c.id}','${task.id}')"></div>
+        <div class="cb ${isDone?'done':''}" onclick="event.stopPropagation(); toggleTask('${c.id}','${task.id}')"></div>
         <div class="task-r">
           <div class="task-title ${isDone?'done':''}">${esc(task.t)}</div>
           <div class="task-hint">${esc(task.h)}</div>
@@ -423,16 +430,25 @@ function renderPhases(c){
     }).join('');
 
     return `<div class="phase">
-      <div class="phase-hdr" style="border-left: 4px solid ${ph.color}">
+      <div class="phase-hdr ${!isCollapsed?'open':''}" style="border-left: 4px solid ${ph.color}" onclick="togglePhaseVisibility('${ph.id}')">
         <div class="phase-info">
           <strong>${esc(ph.label)}</strong>
           <span>${esc(ph.sub)}</span>
         </div>
-        <div class="phase-stat">${pg.done}/${pg.total}</div>
+        <div class="phase-right">
+          <div class="phase-stat">${pg.done}/${pg.total}</div>
+          <div class="phase-chevron">▲</div>
+        </div>
       </div>
-      <div class="phase-body open">${taskListHtml}</div>
+      <div class="phase-body ${!isCollapsed?'open':''}">${taskListHtml}</div>
     </div>`;
   }).join('');
+}
+
+function togglePhaseVisibility(phaseId) {
+  collapsedPhases[phaseId] = !collapsedPhases[phaseId];
+  const c = clients.find(x=>x.id===cid);
+  if(c) renderPhases(c);
 }
 
 function toggleTask(clientId, taskId) {
