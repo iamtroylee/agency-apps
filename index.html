@@ -9,7 +9,6 @@
 <meta name="theme-color" content="#111827">
 <link rel="manifest" href="manifest-board.json">
 <title>Client Board</title>
-<!-- FirebaseCompat libraries -->
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 <style>
@@ -25,7 +24,6 @@
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:40px}
 
-/* FIXED TOPBAR WITH SAFE-AREA PADDING FOR THE NOTCH / DYNAMIC ISLAND */
 .topbar{
   background:#111827;
   padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 12px;
@@ -36,7 +34,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   align-items:center;
   justify-content:space-between
 }
-
 .tb-left{flex:1}
 .topbar-title{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px}
 .topbar-sub{font-size:11px;color:#6b7280;margin-top:1px;display:flex;align-items:center;gap:8px}
@@ -46,13 +43,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sy-bl{background:rgba(37,99,235,.25);color:#93c5fd}
 .sy-rd{background:rgba(220,38,38,.25);color:#fca5a5}
 .add-btn{background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+
 .view{display:none}.view.active{display:block}
 .list-wrap{padding:16px}
 .list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .list-title{font-size:19px;font-weight:800;letter-spacing:-.3px}
 .client-count{font-size:12px;color:var(--tx3);background:var(--sur);border:1px solid var(--bdr);padding:3px 10px;border-radius:20px}
+
+/* TIER TOGGLE CHIPS */
+.tier-filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.tier-filter-row::-webkit-scrollbar{display:none}
+.filter-chip{padding:6px 12px;font-size:12px;font-weight:600;border-radius:20px;background:var(--sur);border:1px solid var(--bdr);color:var(--tx3);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.filter-chip.active{background:var(--bl);color:#fff;border-color:var(--bl)}
+
 .search{width:100%;padding:10px 13px;border:1.5px solid var(--bdr);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--tx);background:var(--sur);outline:none;margin-bottom:14px}
 .search:focus{border-color:var(--bl)}
+
 .client-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);padding:15px 16px;margin-bottom:10px;cursor:pointer;box-shadow:var(--sh);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .client-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
 .tier1::before{background:#2563eb}.tier2::before{background:#7c3aed}.tier3::before{background:#059669}
@@ -66,11 +72,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--bdr)}
 .sp{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
 .sp-new{background:var(--bl-bg);color:var(--bl)}.sp-building{background:var(--pu-bg);color:var(--pu)}.sp-live{background:var(--gr-bg);color:var(--gr)}.sp-monthly{background:var(--am-bg);color:var(--am)}.sp-churned{background:var(--rd-bg);color:var(--rd)}
+
 .empty{text-align:center;padding:52px 24px}
 .empty-icon{font-size:48px;margin-bottom:14px}
 .empty-title{font-size:18px;font-weight:700;margin-bottom:8px}
 .empty-sub{font-size:14px;color:var(--tx3);line-height:1.65;margin-bottom:22px}
 .empty-btn{background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer}
+
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-end}
 .overlay.open{display:flex}
 .modal{background:var(--sur);border-radius:20px 20px 0 0;padding:20px 16px 44px;width:100%;max-height:88vh;overflow-y:auto}
@@ -80,13 +88,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .field label{display:block;font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:5px}
 .field input,.field select,.field textarea{width:100%;padding:11px 13px;border:1.5px solid var(--bdr2);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--tx);background:var(--sur);outline:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--bl)}
-.field textarea{min-height:70px;resize:vertical}
 .modal-btns{display:flex;gap:10px;margin-top:6px}
 .btn-p{flex:1;padding:13px;background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);font-size:15px;font-weight:700;cursor:pointer}
 .btn-s{padding:13px 18px;background:var(--sur2);color:var(--tx2);border:1.5px solid var(--bdr2);border-radius:var(--rsm);font-size:14px;font-weight:600;cursor:pointer}
+
 .detail-wrap{padding-bottom:20px}
 .hero{background:#111827;padding:16px 16px 20px;color:#fff}
 .back{display:flex;align-items:center;gap:5px;color:#6b7280;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:12px;-webkit-tap-highlight-color:transparent;width:fit-content}
+.hero-hdr-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.edit-profile-btn{background:rgba(255,255,255,0.1);color:#e5e7eb;border:none;padding:5px 11px;border-radius:var(--rsm);font-size:12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .d-name{font-size:22px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
 .d-meta{font-size:13px;color:#9ca3af;margin-bottom:12px}
 .d-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
@@ -103,21 +113,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ph-pct{font-size:15px;font-weight:800;color:#fff}
 .ph-bar{height:6px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden}
 .ph-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:width .4s}
-.tabs{display:flex;background:var(--sur);border-bottom:1px solid var(--bdr);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{padding:12px 16px;font-size:13px;font-weight:600;color:var(--tx3);white-space:nowrap;cursor:pointer;border-bottom:2px solid transparent;-webkit-tap-highlight-color:transparent}
+
+.tabs{display:flex;background:var(--sur);border-bottom:1px solid var(--bdr)}
+.tab{padding:12px 16px;font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;-webkit-tap-highlight-color:transparent}
 .tab.active{color:var(--bl);border-bottom-color:var(--bl)}
 .tab-body{display:none;padding:16px}.tab-body.active{display:block}
-.phase{margin-bottom:11px}
 
-/* COLLAPSIBLE CHECKLIST CUSTOM STYLES */
-.phase-hdr{display:flex;align-items:center;gap:12px;padding:14px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent;transition:border-radius 0.15s ease}
+/* COLLAPSED LIST ACCORDION FROM SCREENSHOT */
+.phase{margin-bottom:10px}
+.phase-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent;position:relative}
+.phase-hdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:var(--r) 0 0 var(--r)}
+.p1-hdr::before{background:#2563eb}.p2-hdr::before{background:#7c3aed}.p3-hdr::before{background:#d97706}.p4-hdr::before{background:#059669}.p5-hdr::before{background:#dc2626}.p6-hdr::before{background:#0891b2}
 .phase-hdr.open{border-radius:var(--r) var(--r) 0 0;border-bottom-color:transparent;box-shadow:none}
-.phase-info{flex:1}.phase-info strong{display:block;font-size:14px;font-weight:700}.phase-info span{font-size:12px;color:var(--tx3)}
-.phase-right{display:flex;align-items:center;gap:8px}
+.phase-title-text{font-size:15px;font-weight:700;color:var(--tx)}
+.phase-sub-text{font-size:12px;color:var(--tx3);margin-top:2px}
+.phase-right{display:flex;align-items:center;gap:6px}
 .phase-stat{font-size:12px;font-weight:700;color:var(--tx3)}
-.phase-chevron{font-size:10px;color:var(--tx4);transition:transform .2s ease-in-out}
-.phase-hdr.open .phase-chevron{transform:rotate(180deg)}
+.phase-chevron{font-size:10px;color:var(--tx4);transition:transform .2s}
+.phase-chevron.open{transform:rotate(180deg)}
 .phase-body{display:none;background:var(--sur);border:1px solid var(--bdr);border-top:none;border-radius:0 0 var(--r) var(--r)}
 .phase-body.open{display:block}
 
@@ -130,16 +143,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .task-title{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:2px}
 .task-title.done{color:var(--tx3);text-decoration:line-through}
 .task-hint{font-size:12px;color:var(--tx3);line-height:1.5}
+
 .info-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:11px;box-shadow:var(--sh)}
 .info-section-title{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
 .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bg);gap:12px}
 .info-row:last-child{border-bottom:none}
 .info-key{font-size:13px;color:var(--tx3);flex-shrink:0}
 .info-val{font-size:13px;font-weight:600;color:var(--tx);text-align:right;word-break:break-word;max-width:65%}
+
 @media(prefers-color-scheme:dark){
   :root{--bg:#0a0a0a;--sur:#1c1c1e;--sur2:#2c2c2e;--bdr:#2c2c2e;--bdr2:#3a3a3c;--tx:#f5f5f7;--tx2:#e5e5ea;--tx3:#98989d;--tx4:#636366;--bl-bg:#162247;--gr-bg:#0d2d1f;--am-bg:#2d1f00;--rd-bg:#2d0f0f;--pu-bg:#1e1347}
   .search,.field input,.field select,.field textarea{background:var(--sur2);color:var(--tx);border-color:var(--bdr2)}
-  .modal,.info-card{background:var(--sur)}
+  .modal,.info-card,.filter-chip{background:var(--sur)}
   .topbar,.hero{background:#0d0d0d}
   .phase-hdr,.phase-body,.client-card{background:var(--sur)}
   .t1{background:#162247;color:#6fa3f8}.t2{background:#1e1347;color:#a78bfa}.t3{background:#0d2d1f;color:#34d399}
@@ -162,25 +177,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="add-btn" onclick="openNew()">+ New Client</button>
 </div>
 
-<!-- LIST VIEW -->
 <div id="vlist" class="view active">
   <div class="list-wrap">
     <div class="list-header">
       <div class="list-title">All clients</div>
       <div class="client-count" id="ccount">0</div>
     </div>
-    <input class="search" type="text" placeholder="Search by name, type, owner…" oninput="filter(this.value)">
+    
+    <div class="tier-filter-row">
+      <button class="filter-chip active" id="fchip-all" onclick="setTierFilter('all')">All Tiers</button>
+      <button class="filter-chip" id="fchip-tier1" onclick="setTierFilter('tier1')">Tier 1</button>
+      <button class="filter-chip" id="fchip-tier2" onclick="setTierFilter('tier2')">Tier 2</button>
+      <button class="filter-chip" id="fchip-tier3" onclick="setTierFilter('tier3')">Tier 3</button>
+    </div>
+
+    <input class="search" type="text" placeholder="Search by name, type, owner…" oninput="setSearchQuery(this.value)">
     <div id="clist"></div>
   </div>
 </div>
 
-<!-- DETAIL VIEW -->
 <div id="vdetail" class="view">
   <div class="detail-wrap">
     <div class="hero">
       <div class="back" onclick="goBack()">← All clients</div>
-      <div class="d-name" id="dn">—</div>
-      <div class="d-meta" id="dm">—</div>
+      <div class="hero-hdr-row">
+        <div>
+          <div class="d-name" id="dn">—</div>
+          <div class="d-meta" id="dm">—</div>
+        </div>
+        <button class="edit-profile-btn" onclick="openEditProfile()">Edit Info</button>
+      </div>
       <div class="d-badges" id="db"></div>
       <div class="prog-hero">
         <div class="ph-top"><span class="ph-label">Onboarding progress</span><span class="ph-pct" id="dpct">0%</span></div>
@@ -196,11 +222,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="outsideClose(event)">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title" id="mtitle">New client</div>
+    <input type="hidden" id="edit-id">
     <div class="field"><label>Business name *</label><input id="fn" type="text" placeholder="e.g. Coastal Wellness Spa"></div>
     <div class="field"><label>Owner name *</label><input id="fo" type="text" placeholder="e.g. Maria Torres"></div>
     <div class="field"><label>Phone</label><input id="fp" type="tel" placeholder="(714) 555-0000"></div>
@@ -213,12 +239,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <option value="tier3">Tier 3 — Full Stack Automation</option>
       </select>
     </div>
+    <div class="field"><label>Status</label>
+      <select id="fstatus">
+        <option value="new">New</option>
+        <option value="building">Building</option>
+        <option value="live">Live</option>
+        <option value="monthly">Monthly</option>
+        <option value="churned">Churned</option>
+      </select>
+    </div>
     <div class="field"><label>Setup fee</label><input id="fsu" type="text" placeholder="e.g. $800"></div>
     <div class="field"><label>Monthly retainer</label><input id="fmo" type="text" placeholder="e.g. $250/mo"></div>
-    <div class="field"><label>Start date</label><input id="fsd" type="date"></div>
     <div class="modal-btns" id="mbtns">
       <button class="btn-s" onclick="closeModal()">Cancel</button>
-      <button class="btn-p" onclick="saveClient()">Add client</button>
+      <button class="btn-p" onclick="saveClient()" id="mprimary-btn">Add client</button>
     </div>
   </div>
 </div>
@@ -241,7 +275,9 @@ const DOC = db.collection('board').doc('troy');
 
 // ── STATE ──────────────────────────────────────────────────────────
 let clients = [], cid = null, saveTimer = null;
-let collapsedPhases = {}; // Tracks open/close preferences per phase instance
+let currentTierFilter = 'all';
+let currentSearchQuery = '';
+let collapsedPhases = JSON.parse(localStorage.getItem('collapsedPhases') || '{}');
 
 // ── SYNC STATUS ────────────────────────────────────────────────────
 function setSyncStatus(s){
@@ -268,7 +304,7 @@ DOC.onSnapshot({includeMetadataChanges:true}, snap=>{
     renderList();
     if(cid){
       const c = clients.find(x=>x.id===cid);
-      if(c) { updateProg(c); renderPhases(c); renderInfo(c); }
+      if(c) { updateProg(c); renderPhases(c); renderInfo(c); updateHeroBadges(c); }
     }
     setSyncStatus('synced');
   } else {
@@ -354,14 +390,38 @@ function updateProg(c){
   if(fillEl) fillEl.style.width=pct+'%';
 }
 
-// ── LIST ───────────────────────────────────────────────────────────
-function renderList(q){
+// ── LIST & TIER FILTERING ──────────────────────────────────────────
+function setTierFilter(tier){
+  currentTierFilter = tier;
+  document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+  document.getElementById('fchip-' + tier).classList.add('active');
+  renderList();
+}
+
+function setSearchQuery(v){
+  currentSearchQuery = v;
+  renderList();
+}
+
+function renderList(){
   const el=document.getElementById('clist');
   const cc=document.getElementById('ccount');
   const ts=document.getElementById('ts');
   if(!el) return;
-  let vis=clients;
-  if(q){const lq=q.toLowerCase();vis=clients.filter(c=>c.name.toLowerCase().includes(lq)||(c.owner||'').toLowerCase().includes(lq)||(c.type||'').toLowerCase().includes(lq))}
+  
+  let vis = clients;
+  
+  // Filter by Tier Option
+  if(currentTierFilter !== 'all'){
+    vis = vis.filter(c => c.tier === currentTierFilter);
+  }
+  
+  // Filter by Input String
+  if(currentSearchQuery){
+    const lq = currentSearchQuery.toLowerCase();
+    vis = vis.filter(c=>c.name.toLowerCase().includes(lq)||(c.owner||'').toLowerCase().includes(lq)||(c.type||'').toLowerCase().includes(lq));
+  }
+  
   if(cc) cc.textContent=clients.length+' client'+(clients.length!==1?'s':'');
   if(ts) ts.textContent=clients.length+' client'+(clients.length!==1?'s':'')+' total';
   
@@ -369,7 +429,8 @@ function renderList(q){
     el.innerHTML=`<div class="empty"><div class="empty-icon">🏄</div><div class="empty-title">No clients yet</div><div class="empty-sub">Add your first client to get tracking!</div><button class="empty-btn" onclick="openNew()">Add your first client</button></div>`;
     return;
   }
-  if(!vis.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">No matches</div><div class="empty-sub">Try a different search query.</div></div>`;return}
+  if(!vis.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">No matches</div><div class="empty-sub">Try adjusting your filters or search terms.</div></div>`;return}
+  
   el.innerHTML=vis.map(c=>{
     const pct=progress(c);
     return`<div class="client-card ${c.tier}" onclick="openClient('${c.id}')">
@@ -380,16 +441,13 @@ function renderList(q){
     </div>`;
   }).join('');
 }
-function filter(v){renderList(v)}
 
-// ── DETAIL ─────────────────────────────────────────────────────────
+// ── DETAIL VIEW MANAGEMENT ─────────────────────────────────────────
 function openClient(id){
   cid=id;const c=clients.find(x=>x.id===id);if(!c)return;
-  collapsedPhases = {}; // Reset tracking states on open
   document.getElementById('dn').textContent=c.name;
   document.getElementById('dm').textContent=[c.owner,c.type,c.phone].filter(Boolean).join(' · ');
-  const s=c.status||'new';
-  document.getElementById('db').innerHTML=`<span class="db db-tier">${tierLabel(c.tier)}</span><span class="db ${dbSClass(s)}">${statusLabel(s)}</span>${c.monthly?`<span class="db db-tier">${esc(c.monthly)}/mo</span>`:''}`;
+  updateHeroBadges(c);
   updateProg(c);
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));
   document.querySelectorAll('.tab-body').forEach((t,i)=>t.classList.toggle('active',i===0));
@@ -398,6 +456,15 @@ function openClient(id){
   document.getElementById('vdetail').classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
 }
+
+function updateHeroBadges(c){
+  const s=c.status||'new';
+  const dbEl = document.getElementById('db');
+  if(dbEl){
+    dbEl.innerHTML=`<span class="db db-tier">${tierLabel(c.tier)}</span><span class="db ${dbSClass(s)}">${statusLabel(s)}</span>${c.monthly?`<span class="db db-tier">${esc(c.monthly)}/mo</span>`:''}`;
+  }
+}
+
 function goBack(){
   cid=null;
   document.getElementById('vdetail').classList.remove('active');
@@ -410,7 +477,7 @@ function stab(btn,id){
   btn.classList.add('active');document.getElementById(id).classList.add('active');
 }
 
-// ── PHASES & TASKS ─────────────────────────────────────────────────
+// ── PHASES & TASKS (COLLAPSIBLE ACCORDION) ──────────────────────────
 function renderPhases(c){
   const el = document.getElementById('phases');
   if(!el) return;
@@ -430,14 +497,14 @@ function renderPhases(c){
     }).join('');
 
     return `<div class="phase">
-      <div class="phase-hdr ${!isCollapsed?'open':''}" style="border-left: 4px solid ${ph.color}" onclick="togglePhaseVisibility('${ph.id}')">
-        <div class="phase-info">
-          <strong>${esc(ph.label)}</strong>
-          <span>${esc(ph.sub)}</span>
+      <div class="phase-hdr ${ph.id}-hdr ${!isCollapsed?'open':''}" onclick="togglePhaseVisibility('${ph.id}')">
+        <div>
+          <div class="phase-title-text">${esc(ph.label)}</div>
+          <div class="phase-sub-text">${esc(ph.sub)}</div>
         </div>
         <div class="phase-right">
           <div class="phase-stat">${pg.done}/${pg.total}</div>
-          <div class="phase-chevron">▲</div>
+          <div class="phase-chevron ${!isCollapsed?'open':''}">▲</div>
         </div>
       </div>
       <div class="phase-body ${!isCollapsed?'open':''}">${taskListHtml}</div>
@@ -447,6 +514,7 @@ function renderPhases(c){
 
 function togglePhaseVisibility(phaseId) {
   collapsedPhases[phaseId] = !collapsedPhases[phaseId];
+  localStorage.setItem('collapsedPhases', JSON.stringify(collapsedPhases)); // Persist locally!
   const c = clients.find(x=>x.id===cid);
   if(c) renderPhases(c);
 }
@@ -465,52 +533,109 @@ function renderInfo(c){
   const el = document.getElementById('ilist');
   if(!el) return;
   el.innerHTML = `<div class="info-card">
-    <div class="info-section-title">Client Details</div>
+    <div class="info-section-title">Client Profile Details</div>
+    <div class="info-row"><span class="info-key">Business Name</span><span class="info-val">${esc(c.name || '—')}</span></div>
+    <div class="info-row"><span class="info-key">Owner Name</span><span class="info-val">${esc(c.owner || '—')}</span></div>
     <div class="info-row"><span class="info-key">Email</span><span class="info-val">${esc(c.email || '—')}</span></div>
     <div class="info-row"><span class="info-key">Phone</span><span class="info-val">${esc(c.phone || '—')}</span></div>
+    <div class="info-row"><span class="info-key">Business Type</span><span class="info-val">${esc(c.type || '—')}</span></div>
+    <div class="info-row"><span class="info-key">Service Tier</span><span class="info-val">${tierLabel(c.tier)}</span></div>
     <div class="info-row"><span class="info-key">Setup Fee</span><span class="info-val">${esc(c.setup || '—')}</span></div>
     <div class="info-row"><span class="info-key">Retainer</span><span class="info-val">${esc(c.monthly || '—')}</span></div>
   </div>`;
 }
 
-// ── MODAL INTERACTIONS ─────────────────────────────────────────────
+// ── MODAL INTERACTIONS FOR ADDING & EDITING ───────────────────────
 function openNew(){
   document.getElementById('mtitle').textContent = "New client";
+  document.getElementById('mprimary-btn').textContent = "Add client";
+  document.getElementById('edit-id').value = "";
   document.getElementById('fn').value = "";
   document.getElementById('fo').value = "";
   document.getElementById('fp').value = "";
   document.getElementById('fe').value = "";
   document.getElementById('ft').value = "";
+  document.getElementById('ftr').value = "tier1";
+  document.getElementById('fstatus').value = "new";
   document.getElementById('fsu').value = "";
   document.getElementById('fmo').value = "";
   document.getElementById('overlay').classList.add('open');
 }
+
+function openEditProfile(){
+  const c = clients.find(x=>x.id===cid);
+  if(!c) return;
+  
+  document.getElementById('mtitle').textContent = "Edit client info";
+  document.getElementById('mprimary-btn').textContent = "Save changes";
+  document.getElementById('edit-id').value = c.id;
+  document.getElementById('fn').value = c.name || '';
+  document.getElementById('fo').value = c.owner || '';
+  document.getElementById('fp').value = c.phone || '';
+  document.getElementById('fe').value = c.email || '';
+  document.getElementById('ft').value = c.type || '';
+  document.getElementById('ftr').value = c.tier || 'tier1';
+  document.getElementById('fstatus').value = c.status || 'new';
+  document.getElementById('fsu').value = c.setup || '';
+  document.getElementById('fmo').value = c.monthly || '';
+  document.getElementById('overlay').classList.add('open');
+}
+
 function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
 function outsideClose(e){ if(e.target && e.target.id === 'overlay') closeModal(); }
 
-// ── ADD NEW CLIENT ─────────────────────────────────────────────────
+// ── SAVE / UPDATE CLIENT ENGINE ────────────────────────────────────
 function saveClient(){
   const name = document.getElementById('fn').value.trim();
   const owner = document.getElementById('fo').value.trim();
   if(!name || !owner) { alert("Business name and Owner name are required!"); return; }
   
-  const newC = {
-    id: uid(),
-    name,
-    owner,
-    phone: document.getElementById('fp').value,
-    email: document.getElementById('fe').value,
-    type: document.getElementById('ft').value,
-    tier: document.getElementById('ftr').value,
-    setup: document.getElementById('fsu').value,
-    monthly: document.getElementById('fmo').value,
-    status: 'new',
-    tasks: {}
-  };
+  const editId = document.getElementById('edit-id').value;
   
-  clients.push(newC);
-  renderList();
+  if(editId) {
+    // Modify existing profile
+    const c = clients.find(x=>x.id===editId);
+    if(c){
+      c.name = name;
+      c.owner = owner;
+      c.phone = document.getElementById('fp').value;
+      c.email = document.getElementById('fe').value;
+      c.type = document.getElementById('ft').value;
+      c.tier = document.getElementById('ftr').value;
+      c.status = document.getElementById('fstatus').value;
+      c.setup = document.getElementById('fsu').value;
+      c.monthly = document.getElementById('fmo').value;
+    }
+  } else {
+    // Create new profile
+    const newC = {
+      id: uid(),
+      name,
+      owner,
+      phone: document.getElementById('fp').value,
+      email: document.getElementById('fe').value,
+      type: document.getElementById('ft').value,
+      tier: document.getElementById('ftr').value,
+      setup: document.getElementById('fsu').value,
+      monthly: document.getElementById('fmo').value,
+      status: document.getElementById('fstatus').value,
+      tasks: {}
+    };
+    clients.push(newC);
+  }
+  
   closeModal();
+  renderList();
+  if(cid) {
+    const updatedClient = clients.find(x=>x.id===cid);
+    if(updatedClient) {
+      document.getElementById('dn').textContent=updatedClient.name;
+      document.getElementById('dm').textContent=[updatedClient.owner,updatedClient.type,updatedClient.phone].filter(Boolean).join(' · ');
+      updateHeroBadges(updatedClient);
+      renderPhases(updatedClient);
+      renderInfo(updatedClient);
+    }
+  }
   save();
 }
 </script>
