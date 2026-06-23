@@ -2,7 +2,7 @@
   "name": "Client Board",
   "short_name": "Clients",
   "description": "HB AI Agency — client tracker and onboarding checklist",
-  "start_url": "./client_board.html",
+  "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#111827",
