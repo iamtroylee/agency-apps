@@ -16,24 +16,20 @@
 :root{
   --bg:#f0f2f5;--sur:#fff;--sur2:#f8f9fb;--bdr:#e4e7ec;--bdr2:#d0d5dd;
   --tx:#101828;--tx2:#344054;--tx3:#667085;--tx4:#98a2b3;
-  --bl:#2563eb;--bl-bg:#eff6ff;--gr:#059669;--gr-bg:#ecfdf5;
-  --am:#d97706;--am-bg:#fffbeb;--rd:#dc2626;--rd-bg:#fef2f2;
-  --pu:#7c3aed;--pu-bg:#f5f3ff;--cy:#0891b2;
+  --bl:#2563eb;--bl-bg:#eff6ff;
+  --gr:#059669;--gr-bg:#ecfdf5;
+  --am:#d97706;--am-bg:#fffbeb;
+  --rd:#dc2626;--rd-bg:#fef2f2;
+  --pu:#7c3aed;--pu-bg:#f5f3ff;
+  --cy:#0891b2;--cy-bg:#ecfeff;
+  --pk:#db2777;--pk-bg:#fdf2f8;
   --r:12px;--rsm:8px;--rxs:6px;
   --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:40px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:50px}
 
-.topbar{
-  background:#111827;
-  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 12px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:space-between
-}
+/* TOP BAR */
+.topbar{background:#111827;padding:calc(env(safe-area-inset-top,0px)+14px) 16px 12px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
 .tb-left{flex:1}
 .topbar-title{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px}
 .topbar-sub{font-size:11px;color:#6b7280;margin-top:1px;display:flex;align-items:center;gap:8px}
@@ -44,25 +40,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sy-rd{background:rgba(220,38,38,.25);color:#fca5a5}
 .add-btn{background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 
+/* VIEWS */
 .view{display:none}.view.active{display:block}
-.list-wrap{padding:16px}
+.list-wrap{padding:14px}
 .list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .list-title{font-size:19px;font-weight:800;letter-spacing:-.3px}
 .client-count{font-size:12px;color:var(--tx3);background:var(--sur);border:1px solid var(--bdr);padding:3px 10px;border-radius:20px}
 
-/* TIER TOGGLE CHIPS */
-.tier-filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
-.tier-filter-row::-webkit-scrollbar{display:none}
-.filter-chip{padding:6px 12px;font-size:12px;font-weight:600;border-radius:20px;background:var(--sur);border:1px solid var(--bdr);color:var(--tx3);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
-.filter-chip.active{background:var(--bl);color:#fff;border-color:var(--bl)}
+/* FILTER CHIPS */
+.filter-row{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.chip{padding:6px 12px;font-size:12px;font-weight:600;border-radius:20px;background:var(--sur);border:1px solid var(--bdr);color:var(--tx3);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+.chip.active{background:var(--bl);color:#fff;border-color:var(--bl)}
 
-.search{width:100%;padding:10px 13px;border:1.5px solid var(--bdr);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--tx);background:var(--sur);outline:none;margin-bottom:14px}
+.search{width:100%;padding:10px 13px;border:1.5px solid var(--bdr);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--tx);background:var(--sur);outline:none;margin-bottom:12px}
 .search:focus{border-color:var(--bl)}
 
+/* CLIENT CARD */
 .client-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);padding:15px 16px;margin-bottom:10px;cursor:pointer;box-shadow:var(--sh);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .client-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
 .tier1::before{background:#2563eb}.tier2::before{background:#7c3aed}.tier3::before{background:#059669}
-.cc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.cc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
 .cc-name{font-size:16px;font-weight:700}
 .cc-tier{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
 .t1{background:var(--bl-bg);color:var(--bl)}.t2{background:var(--pu-bg);color:var(--pu)}.t3{background:var(--gr-bg);color:var(--gr)}
@@ -71,42 +69,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:width .3s}
 .cc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--bdr)}
 .sp{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
-.sp-new{background:var(--bl-bg);color:var(--bl)}.sp-building{background:var(--pu-bg);color:var(--pu)}.sp-live{background:var(--gr-bg);color:var(--gr)}.sp-monthly{background:var(--am-bg);color:var(--am)}.sp-churned{background:var(--rd-bg);color:var(--rd)}
+.sp-prospect{background:#f0f0f5;color:#5a5a6a}
+.sp-negotiating{background:var(--bl-bg);color:var(--bl)}
+.sp-building{background:var(--pu-bg);color:var(--pu)}
+.sp-live{background:var(--gr-bg);color:var(--gr)}
+.sp-monthly{background:var(--am-bg);color:var(--am)}
+.sp-at-risk{background:var(--rd-bg);color:var(--rd)}
+.sp-churned{background:#f0f0f5;color:var(--tx3)}
+.cc-next{font-size:11px;color:var(--bl);font-weight:600;margin-top:4px}
 
+/* EMPTY STATE */
 .empty{text-align:center;padding:52px 24px}
 .empty-icon{font-size:48px;margin-bottom:14px}
 .empty-title{font-size:18px;font-weight:700;margin-bottom:8px}
 .empty-sub{font-size:14px;color:var(--tx3);line-height:1.65;margin-bottom:22px}
 .empty-btn{background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer}
 
+/* MODAL / OVERLAY */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-end}
 .overlay.open{display:flex}
-.modal{background:var(--sur);border-radius:20px 20px 0 0;padding:20px 16px 44px;width:100%;max-height:88vh;overflow-y:auto}
+.modal{background:var(--sur);border-radius:20px 20px 0 0;padding:20px 16px 44px;width:100%;max-height:92vh;overflow-y:auto}
 .modal-handle{width:36px;height:4px;background:var(--bdr2);border-radius:2px;margin:0 auto 16px}
 .modal-title{font-size:18px;font-weight:800;margin-bottom:16px}
 .field{margin-bottom:13px}
 .field label{display:block;font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:5px}
 .field input,.field select,.field textarea{width:100%;padding:11px 13px;border:1.5px solid var(--bdr2);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--tx);background:var(--sur);outline:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--bl)}
-.modal-btns{display:flex;gap:10px;margin-top:6px}
+.field textarea{resize:vertical;min-height:80px}
+.modal-btns{display:flex;gap:10px;margin-top:8px}
 .btn-p{flex:1;padding:13px;background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);font-size:15px;font-weight:700;cursor:pointer}
 .btn-s{padding:13px 18px;background:var(--sur2);color:var(--tx2);border:1.5px solid var(--bdr2);border-radius:var(--rsm);font-size:14px;font-weight:600;cursor:pointer}
+.btn-danger{padding:11px 16px;background:var(--rd-bg);color:var(--rd);border:1.5px solid var(--rd);border-radius:var(--rsm);font-size:13px;font-weight:600;cursor:pointer}
 
+/* DETAIL VIEW */
 .detail-wrap{padding-bottom:20px}
 .hero{background:#111827;padding:16px 16px 20px;color:#fff}
 .back{display:flex;align-items:center;gap:5px;color:#6b7280;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:12px;-webkit-tap-highlight-color:transparent;width:fit-content}
 .hero-hdr-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.edit-profile-btn{background:rgba(255,255,255,0.1);color:#e5e7eb;border:none;padding:5px 11px;border-radius:var(--rsm);font-size:12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.edit-profile-btn{background:rgba(255,255,255,.1);color:#e5e7eb;border:none;padding:5px 11px;border-radius:var(--rsm);font-size:12px;font-weight:600;cursor:pointer}
 .d-name{font-size:22px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
 .d-meta{font-size:13px;color:#9ca3af;margin-bottom:12px}
 .d-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .db{font-size:12px;font-weight:700;padding:4px 11px;border-radius:20px}
 .db-tier{background:rgba(37,99,235,.3);color:#93c5fd}
-.db-s-new{background:rgba(37,99,235,.25);color:#93c5fd}
+.db-s-prospect{background:rgba(255,255,255,.1);color:#d1d5db}
+.db-s-negotiating{background:rgba(37,99,235,.25);color:#93c5fd}
 .db-s-building{background:rgba(124,58,237,.25);color:#c4b5fd}
 .db-s-live{background:rgba(5,150,105,.25);color:#6ee7b7}
 .db-s-monthly{background:rgba(217,119,6,.25);color:#fcd34d}
-.db-s-churned{background:rgba(220,38,38,.25);color:#fca5a5}
+.db-s-at-risk{background:rgba(220,38,38,.3);color:#fca5a5}
+.db-s-churned{background:rgba(255,255,255,.08);color:#9ca3af}
 .prog-hero{background:rgba(255,255,255,.08);border-radius:var(--rsm);padding:12px 14px}
 .ph-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .ph-label{font-size:13px;font-weight:600;color:#e5e7eb}
@@ -114,17 +126,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ph-bar{height:6px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden}
 .ph-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:width .4s}
 
-.tabs{display:flex;background:var(--sur);border-bottom:1px solid var(--bdr)}
-.tab{padding:12px 16px;font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;-webkit-tap-highlight-color:transparent}
+/* TABS */
+.tabs{display:flex;background:var(--sur);border-bottom:1px solid var(--bdr);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 14px;font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .tab.active{color:var(--bl);border-bottom-color:var(--bl)}
-.tab-body{display:none;padding:16px}.tab-body.active{display:block}
+.tab-body{display:none;padding:14px}.tab-body.active{display:block}
 
-/* COLLAPSED LIST ACCORDION FROM SCREENSHOT */
+/* PHASE ACCORDION */
 .phase{margin-bottom:10px}
-.phase-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent;position:relative}
+.phase-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 15px;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent;position:relative}
 .phase-hdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:var(--r) 0 0 var(--r)}
-.p1-hdr::before{background:#2563eb}.p2-hdr::before{background:#7c3aed}.p3-hdr::before{background:#d97706}.p4-hdr::before{background:#059669}.p5-hdr::before{background:#dc2626}.p6-hdr::before{background:#0891b2}
+.ph-p1::before{background:#7c3aed}.ph-p2::before{background:#d97706}.ph-p3::before{background:#059669}.ph-p4::before{background:#dc2626}.ph-p5::before{background:#0891b2}.ph-p6::before{background:#db2777}
 .phase-hdr.open{border-radius:var(--r) var(--r) 0 0;border-bottom-color:transparent;box-shadow:none}
+.phase-left{flex:1}
 .phase-title-text{font-size:15px;font-weight:700;color:var(--tx)}
 .phase-sub-text{font-size:12px;color:var(--tx3);margin-top:2px}
 .phase-right{display:flex;align-items:center;gap:6px}
@@ -134,7 +149,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .phase-body{display:none;background:var(--sur);border:1px solid var(--bdr);border-top:none;border-radius:0 0 var(--r) var(--r)}
 .phase-body.open{display:block}
 
-.task{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-bottom:1px solid var(--bg)}
+/* TASKS */
+.task{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-bottom:1px solid var(--bg)}
 .task:last-child{border-bottom:none}
 .cb{width:22px;height:22px;border:2px solid var(--bdr2);border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .15s}
 .cb.done{background:var(--gr);border-color:var(--gr)}
@@ -144,6 +160,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .task-title.done{color:var(--tx3);text-decoration:line-through}
 .task-hint{font-size:12px;color:var(--tx3);line-height:1.5}
 
+/* MESSAGE TEMPLATES */
+.msg-template{margin:0 12px 12px;background:var(--sur2);border:1px solid var(--bdr);border-radius:var(--rsm)}
+.msg-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-bottom:1px solid var(--bdr);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.msg-label{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+.msg-label-text{background:var(--bl-bg);color:var(--bl)}
+.msg-label-sms{background:var(--gr-bg);color:var(--gr)}
+.msg-label-email{background:var(--am-bg);color:var(--am)}
+.msg-title{font-size:12px;font-weight:600;color:var(--tx2);flex:1;margin:0 8px}
+.msg-copy{font-size:11px;font-weight:600;color:var(--bl);cursor:pointer;padding:4px 8px;background:var(--bl-bg);border-radius:var(--rxs);border:none;-webkit-tap-highlight-color:transparent}
+.msg-body{padding:10px 12px;font-size:13px;line-height:1.7;color:var(--tx2);white-space:pre-wrap;display:none}
+.msg-body.open{display:block}
+
+/* INFO TAB */
 .info-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:11px;box-shadow:var(--sh)}
 .info-section-title{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
 .info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bg);gap:12px}
@@ -151,21 +180,61 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .info-key{font-size:13px;color:var(--tx3);flex-shrink:0}
 .info-val{font-size:13px;font-weight:600;color:var(--tx);text-align:right;word-break:break-word;max-width:65%}
 
+/* NOTES TAB */
+.notes-area{width:100%;padding:12px;border:1.5px solid var(--bdr2);border-radius:var(--rsm);font-size:14px;font-family:inherit;color:var(--tx);background:var(--sur);outline:none;resize:vertical;min-height:140px;line-height:1.6}
+.notes-area:focus{border-color:var(--bl)}
+.notes-hint{font-size:12px;color:var(--tx4);margin-top:6px}
+
+/* TIMELINE TAB */
+.timeline-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.timeline-item:last-child{border-bottom:none}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--bl);flex-shrink:0;margin-top:4px}
+.tl-body{flex:1}
+.tl-title{font-size:13px;font-weight:600;color:var(--tx)}
+.tl-date{font-size:11px;color:var(--tx4);margin-top:2px}
+.add-event-btn{width:100%;padding:11px;background:var(--sur2);border:1.5px dashed var(--bdr2);border-radius:var(--rsm);font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;margin-top:10px;-webkit-tap-highlight-color:transparent}
+
+/* LAUNCH COUNTDOWN */
+.countdown-bar{background:linear-gradient(135deg,#1e3a5f,#1e1347);border-radius:var(--rsm);padding:14px 16px;margin:14px 14px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cd-label{font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:3px}
+.cd-days{font-size:28px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1}
+.cd-sub{font-size:11px;color:#6b7280;margin-top:2px}
+.cd-set{font-size:11px;font-weight:600;color:#6b7280;cursor:pointer;text-decoration:underline;padding:4px 0;-webkit-tap-highlight-color:transparent}
+.cd-overdue{color:#fca5a5}
+.cd-done{color:#6ee7b7}
+.cd-right{text-align:right;flex-shrink:0}
+
+/* REVENUE TAB */
+.rev-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh)}
+.rev-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bg);font-size:13px}
+.rev-row:last-child{border-bottom:none}
+.rev-val{font-weight:700;color:var(--gr)}
+.rev-label{color:var(--tx3)}
+
 @media(prefers-color-scheme:dark){
-  :root{--bg:#0a0a0a;--sur:#1c1c1e;--sur2:#2c2c2e;--bdr:#2c2c2e;--bdr2:#3a3a3c;--tx:#f5f5f7;--tx2:#e5e5ea;--tx3:#98989d;--tx4:#636366;--bl-bg:#162247;--gr-bg:#0d2d1f;--am-bg:#2d1f00;--rd-bg:#2d0f0f;--pu-bg:#1e1347}
-  .search,.field input,.field select,.field textarea{background:var(--sur2);color:var(--tx);border-color:var(--bdr2)}
-  .modal,.info-card,.filter-chip{background:var(--sur)}
+  :root{--bg:#0a0a0a;--sur:#1c1c1e;--sur2:#2c2c2e;--bdr:#2c2c2e;--bdr2:#3a3a3c;--tx:#f5f5f7;--tx2:#e5e5ea;--tx3:#98989d;--tx4:#636366;--bl-bg:#162247;--gr-bg:#0d2d1f;--am-bg:#2d1f00;--rd-bg:#2d0f0f;--pu-bg:#1e1347;--cy-bg:#0a1f26;--pk-bg:#2d0f1f}
+  .search,.field input,.field select,.field textarea,.notes-area{background:var(--sur2);color:var(--tx);border-color:var(--bdr2)}
+  .modal,.info-card,.filter-chip,.rev-card{background:var(--sur)}
   .topbar,.hero{background:#0d0d0d}
-  .phase-hdr,.phase-body,.client-card{background:var(--sur)}
+  .phase-hdr,.phase-body,.client-card,.msg-template{background:var(--sur)}
   .t1{background:#162247;color:#6fa3f8}.t2{background:#1e1347;color:#a78bfa}.t3{background:#0d2d1f;color:#34d399}
-  .sp-new{background:#162247;color:#6fa3f8}.sp-building{background:#1e1347;color:#a78bfa}.sp-live{background:#0d2d1f;color:#34d399}.sp-monthly{background:#2d1f00;color:#fbbf24}.sp-churned{background:#2d0f0f;color:#f87171}
-  .task,.info-row{border-color:var(--bg)}
+  .sp-prospect{background:#2c2c2e;color:#9ca3af}
+  .sp-negotiating{background:#162247;color:#6fa3f8}
+  .sp-building{background:#1e1347;color:#a78bfa}
+  .sp-live{background:#0d2d1f;color:#34d399}
+  .sp-monthly{background:#2d1f00;color:#fbbf24}
+  .sp-at-risk{background:#2d0f0f;color:#f87171}
+  .sp-churned{background:#2c2c2e;color:#6b7280}
+  .task,.info-row,.rev-row,.timeline-item{border-color:var(--bg)}
   .btn-s{background:var(--sur2);color:var(--tx2);border-color:var(--bdr2)}
   .tabs{background:var(--sur);border-color:var(--bdr)}
+  .msg-body{background:var(--sur2)}
+  .add-event-btn{background:var(--sur2);border-color:var(--bdr2)}
 }
 </style>
 </head>
 <body>
+
 <div class="topbar">
   <div class="tb-left">
     <div class="topbar-title">Client Board</div>
@@ -174,21 +243,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span id="sync-status" class="sy-bl">↓ Loading</span>
     </div>
   </div>
-  <button class="add-btn" onclick="openNew()">+ New Client</button>
+  <button class="add-btn" onclick="openNew()">+ Add Client</button>
 </div>
 
+<!-- LIST VIEW -->
 <div id="vlist" class="view active">
   <div class="list-wrap">
     <div class="list-header">
       <div class="list-title">All clients</div>
       <div class="client-count" id="ccount">0</div>
     </div>
-    
-    <div class="tier-filter-row">
-      <button class="filter-chip active" id="fchip-all" onclick="setTierFilter('all')">All Tiers</button>
-      <button class="filter-chip" id="fchip-tier1" onclick="setTierFilter('tier1')">Tier 1</button>
-      <button class="filter-chip" id="fchip-tier2" onclick="setTierFilter('tier2')">Tier 2</button>
-      <button class="filter-chip" id="fchip-tier3" onclick="setTierFilter('tier3')">Tier 3</button>
+
+    <div class="filter-row">
+      <button class="chip active" id="fchip-all" onclick="setFilter('tier','all')">All Tiers</button>
+      <button class="chip" id="fchip-tier1" onclick="setFilter('tier','tier1')">Tier 1</button>
+      <button class="chip" id="fchip-tier2" onclick="setFilter('tier','tier2')">Tier 2</button>
+      <button class="chip" id="fchip-tier3" onclick="setFilter('tier','tier3')">Tier 3</button>
+    </div>
+    <div class="filter-row">
+      <button class="chip active" id="schip-all" onclick="setFilter('status','all')">All Status</button>
+      <button class="chip" id="schip-prospect" onclick="setFilter('status','prospect')">Prospect</button>
+      <button class="chip" id="schip-negotiating" onclick="setFilter('status','negotiating')">Negotiating</button>
+      <button class="chip" id="schip-building" onclick="setFilter('status','building')">Building</button>
+      <button class="chip" id="schip-live" onclick="setFilter('status','live')">Live</button>
+      <button class="chip" id="schip-monthly" onclick="setFilter('status','monthly')">Monthly</button>
+      <button class="chip" id="schip-at-risk" onclick="setFilter('status','at-risk')">At Risk</button>
     </div>
 
     <input class="search" type="text" placeholder="Search by name, type, owner…" oninput="setSearchQuery(this.value)">
@@ -196,6 +275,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- DETAIL VIEW -->
 <div id="vdetail" class="view">
   <div class="detail-wrap">
     <div class="hero">
@@ -209,19 +289,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
       <div class="d-badges" id="db"></div>
       <div class="prog-hero">
-        <div class="ph-top"><span class="ph-label">Onboarding progress</span><span class="ph-pct" id="dpct">0%</span></div>
+        <div class="ph-top"><span class="ph-label">Journey progress</span><span class="ph-pct" id="dpct">0%</span></div>
         <div class="ph-bar"><div class="ph-fill" id="dpfill" style="width:0%"></div></div>
       </div>
     </div>
+
     <div class="tabs">
       <div class="tab active" onclick="stab(this,'tc')">Checklist</div>
+      <div class="tab" onclick="stab(this,'tn')">Notes</div>
+      <div class="tab" onclick="stab(this,'ttl')">Timeline</div>
+      <div class="tab" onclick="stab(this,'tr')">Revenue</div>
       <div class="tab" onclick="stab(this,'ti')">Info</div>
     </div>
+
+    <div id="launch-countdown" style="display:none"></div>
     <div id="tc" class="tab-body active"><div id="phases"></div></div>
+    <div id="tn" class="tab-body">
+      <textarea class="notes-area" id="notes-field" placeholder="Anything about this client — what they care about, what's going wrong, their dog's name, literally whatever helps you..." oninput="autoSaveNotes()"></textarea>
+      <div class="notes-hint">Auto-saves as you type</div>
+    </div>
+    <div id="ttl" class="tab-body"><div id="timeline-list"></div><button class="add-event-btn" onclick="openAddEvent()">+ Add event</button></div>
+    <div id="tr" class="tab-body"><div id="rev-panel"></div></div>
     <div id="ti" class="tab-body"><div id="ilist"></div></div>
   </div>
 </div>
 
+<!-- ADD/EDIT CLIENT MODAL -->
 <div class="overlay" id="overlay" onclick="outsideClose(event)">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -231,7 +324,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="field"><label>Owner name *</label><input id="fo" type="text" placeholder="e.g. Maria Torres"></div>
     <div class="field"><label>Phone</label><input id="fp" type="tel" placeholder="(714) 555-0000"></div>
     <div class="field"><label>Email</label><input id="fe" type="email" placeholder="owner@business.com"></div>
-    <div class="field"><label>Business type</label><input id="ft" type="text" placeholder="e.g. Med Spa, Chiropractor, Gym"></div>
+    <div class="field"><label>Business type</label><input id="ft" type="text" placeholder="e.g. Med Spa, Pool Company, Roofing"></div>
+    <div class="field"><label>How you found them / source</label><input id="fsource" type="text" placeholder="e.g. Google Maps, IG DM, referral from Mike"></div>
     <div class="field"><label>Service tier</label>
       <select id="ftr">
         <option value="tier1">Tier 1 — Website + Lead Capture</option>
@@ -241,53 +335,270 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="field"><label>Status</label>
       <select id="fstatus">
-        <option value="new">New</option>
+        <option value="prospect">Prospect</option>
+        <option value="negotiating">Negotiating</option>
         <option value="building">Building</option>
         <option value="live">Live</option>
         <option value="monthly">Monthly</option>
+        <option value="at-risk">At Risk</option>
         <option value="churned">Churned</option>
       </select>
     </div>
     <div class="field"><label>Setup fee</label><input id="fsu" type="text" placeholder="e.g. $800"></div>
     <div class="field"><label>Monthly retainer</label><input id="fmo" type="text" placeholder="e.g. $250/mo"></div>
+    <div class="field"><label>Start date</label><input id="fstart" type="date"></div>
+    <div class="field"><label>Target launch date</label><input id="flaunch" type="date"></div>
     <div class="modal-btns" id="mbtns">
       <button class="btn-s" onclick="closeModal()">Cancel</button>
       <button class="btn-p" onclick="saveClient()" id="mprimary-btn">Add client</button>
+    </div>
+    <div style="margin-top:12px;text-align:center" id="delete-row"></div>
+  </div>
+</div>
+
+<!-- ADD EVENT MODAL -->
+<div class="overlay" id="event-overlay" onclick="if(event.target.id==='event-overlay')closeEventModal()">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add timeline event</div>
+    <div class="field"><label>What happened?</label><input id="ev-title" type="text" placeholder="e.g. Sent contract, Got deposit, Launch call done"></div>
+    <div class="field"><label>Date</label><input id="ev-date" type="date"></div>
+    <div class="modal-btns">
+      <button class="btn-s" onclick="closeEventModal()">Cancel</button>
+      <button class="btn-p" onclick="saveEvent()">Add</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── FIREBASE CONFIG ────────────────────────────────────────────────
-const firebaseConfig = {
-  apiKey: "AIzaSyCwPr_F8izAzuj3KHYyoTKuUffHf-PyGlo",
-  authDomain: "agency-apps.firebaseapp.com",
-  projectId: "agency-apps",
-  storageBucket: "agency-apps.firebasestorage.app",
-  messagingSenderId: "987600971096",
-  appId: "1:987600971096:web:99cf347e62c3279fb5f12d",
-  measurementId: "G-PD10LZ5ZQ6"
-};
+// ── FIREBASE (fully guarded — works in preview/sandbox without SDK) ─
+let fbReady = false;
+let DOC     = null;
+const LS_KEY = 'clientboard_troy';
 
-firebase.initializeApp(firebaseConfig);
-const db  = firebase.firestore();
-const DOC = db.collection('board').doc('troy');
+function lsLoad(){
+  try{const d=JSON.parse(localStorage.getItem(LS_KEY)||'{}');if(d.clients)clients=d.clients;}catch(e){}
+}
+function lsSave(){
+  try{localStorage.setItem(LS_KEY,JSON.stringify({clients}));}catch(e){}
+}
+
+function initFirebase(){
+  try{
+    if(typeof firebase==='undefined'||!firebase.app) throw new Error('no sdk');
+    const cfg={
+      apiKey:'AIzaSyCwPr_F8izAzuj3KHYyoTKuUffHf-PyGlo',
+      authDomain:'agency-apps.firebaseapp.com',
+      projectId:'agency-apps',
+      storageBucket:'agency-apps.firebasestorage.app',
+      messagingSenderId:'987600971096',
+      appId:'1:987600971096:web:99cf347e62c3279fb5f12d'
+    };
+    if(!firebase.apps.length) firebase.initializeApp(cfg);
+    const db=firebase.firestore();
+    DOC=db.collection('board').doc('troy');
+    fbReady=true;
+    DOC.onSnapshot({includeMetadataChanges:true},snap=>{
+      if(snap.exists){
+        clients=snap.data().clients||[];
+        lsSave();
+        renderList();
+        if(cid){
+          const c=clients.find(x=>x.id===cid);
+          if(c){updateProg(c);renderPhases(c);renderInfo(c);updateHeroBadges(c);renderTimeline(c);renderRevenue(c);loadNotes(c);renderCountdown(c);}
+        }
+        setSyncStatus('synced');
+      } else {setSyncStatus('synced');}
+    },()=>setSyncStatus('offline'));
+  }catch(e){
+    // Firebase blocked — fall back to localStorage silently
+    lsLoad();
+    renderList();
+    setSyncStatus('offline');
+  }
+}
 
 // ── STATE ──────────────────────────────────────────────────────────
-let clients = [], cid = null, saveTimer = null;
-let currentTierFilter = 'all';
-let currentSearchQuery = '';
-let collapsedPhases = JSON.parse(localStorage.getItem('collapsedPhases') || '{}');
+let clients = [], cid = null, saveTimer = null, notesTimer = null;
+let tierFilter = 'all', statusFilter = 'all', searchQ = '';
+let collapsedPhases = JSON.parse(localStorage.getItem('cbCollapsed') || '{}');
+
+// ── PHASES (start at first contact — qualifying was in the Playbook) ──
+const PHASES = [
+  {
+    id:'p1', label:'Initial contact', sub:'From first message to a booked call', cls:'ph-p1',
+    tasks:[
+      {id:'p1a', t:'Send first outreach (DM, email, or text)', h:'Use the Scripts & Outreach section in the Playbook. Pick your angle.'},
+      {id:'p1b', t:'Note their current review count and website status', h:'Mention the number in your message — shows you actually looked.'},
+      {id:'p1c', t:'Log their response (or non-response)', h:'If no reply after 5–7 days, send one follow-up. Two max.'},
+      {id:'p1d', t:'Book 20-min demo call — call it a "quick look"', h:'Calendly link. Don\'t call it a "sales call."'},
+    ],
+    messages:[
+      {type:'sms', label:'Text', title:'Warm intro text', body:`Hey [name], this is [your name] — I build AI systems for local businesses. I help places like [Business Name] stop losing leads after hours and get more Google reviews automatically. Open to a quick 15-min call this week?`},
+      {type:'email', label:'Email', title:'Cold email — reviews angle', body:`Subject: Quick idea for [Business Name]\n\nHey [First Name],\n\nI was looking at [Business Name] on Google and noticed you're at [X] reviews. For a place that looks as solid as yours, I'd expect way more — which usually just means the ask isn't automated yet.\n\nI help local businesses set up a simple text that goes out to customers right after their visit. Most go from where you are now to 150+ reviews in a few months.\n\nNo pressure — just thought it was worth mentioning.\n\n— [Your name]\n[Your number]`},
+      {type:'text', label:'DM', title:'IG/Facebook DM opener', body:`Hey [name] — came across [Business Name] and genuinely love what you've built. Quick question: do you have anything set up to respond to inquiries automatically when you're not around?\n\nNot a pitch — just something I notice a lot of great businesses don't have yet. Happy to show you what it looks like if you're curious.\n\nEither way — [specific thing you noticed] is great.`},
+      {type:'sms', label:'Text', title:'Follow-up if no reply (day 5–7)', body:`Hey [name] — just bumping this up in case it got buried. No worries if timing's off. I put together a quick look at what this could look like for [Business Name] specifically. Happy to send it over: [Loom link]`},
+    ]
+  },
+  {
+    id:'p2', label:'Demo call', sub:'20 minutes to a verbal yes', cls:'ph-p2',
+    tasks:[
+      {id:'p2a', t:'Prep Loom demo or screen share before the call', h:'Anonymized setup or your demo account. Seeing it converts 3x better than describing it.'},
+      {id:'p2b', t:'Open with 2 diagnostic questions — no pitch yet', h:'"How do most new customers find you?" and "What\'s your busiest time of week?"'},
+      {id:'p2c', t:'Show demo and narrate why it matters for THEIR business', h:'"This is what your customer sees at 10pm — instant reply, qualifying question, booking."'},
+      {id:'p2d', t:'Ask: "Can you see this being useful for [their business]?"', h:'Soft close before pricing. Almost everyone says yes here.'},
+      {id:'p2e', t:'Present ONE tier — the right one for what you heard', h:'"For a business like yours I\'d start here." Don\'t show all three.'},
+      {id:'p2f', t:'State pricing clearly — then stop talking', h:'"Setup is $[X] and $[X]/mo — includes 1 hour of changes per month." Then wait.'},
+      {id:'p2g', t:'Confirm next steps before hanging up', h:'"I\'ll send contract and deposit invoice today. Done within a week."'},
+    ],
+    messages:[
+      {type:'sms', label:'Text', title:'Confirm the call (send day before)', body:`Hey [name] — just confirming our call tomorrow at [time]. I'll be sending a Zoom link. Looking forward to it!`},
+      {type:'sms', label:'Text', title:'Send Zoom link', body:`Hey [name], here's the Zoom link for our call: [LINK]\n\nSee you at [time]!`},
+      {type:'sms', label:'Text', title:'Follow up if they ghost after the call', body:`Hey [name] — great talking earlier. I'll have a proposal and a look at the setup in your inbox by end of day. Let me know if you have any questions before then.`},
+      {type:'email', label:'Email', title:'Post-call follow-up if no response', body:`Subject: Next steps for [Business Name]\n\nHey [First Name],\n\nReally enjoyed our call. Based on what you shared, I think [TIER] would be the right fit — setup is $[X] and $[X]/mo after that.\n\nI can have everything running within a week of your deposit. Ready to move forward, or any questions?\n\n— [Your name]`},
+    ]
+  },
+  {
+    id:'p3', label:'Close & contract', sub:'From verbal yes to deposit in hand', cls:'ph-p3',
+    tasks:[
+      {id:'p3a', t:'Send contract + 50% deposit invoice same day as verbal yes', h:'Don\'t wait until tomorrow. Send within a few hours. Momentum matters.'},
+      {id:'p3b', t:'Send HelloSign contract (fill in tier, pricing, start date)', h:'Master template in the Playbook → Client Templates. Duplicate it, fill in brackets.'},
+      {id:'p3c', t:'Confirm deposit cleared before starting ANY work', h:'After access is too late. Zoho Invoice + Stripe. No exceptions.'},
+      {id:'p3d', t:'Send onboarding form link the same day deposit clears', h:'Google Form — 19 questions. Confirm you received it within the hour.'},
+      {id:'p3e', t:'Confirm timeline with client: "Live within 7 days of your form"', h:'Sets expectations. Keeps you accountable.'},
+    ],
+    messages:[
+      {type:'email', label:'Email', title:'Contract + invoice email', body:`Subject: [Business Name] — contract + next steps\n\nHey [First Name],\n\nGreat talking — here's everything to get started:\n\n📄 Contract (sign here): [HelloSign link]\n💳 Deposit invoice ($[X] — 50% of setup): [Stripe/Zoho link]\n\nOnce both are done, I'll send you the onboarding form and we'll be live within a week.\n\nQuestions? Reply here or text me: [your number]\n\n— [Your name]`},
+      {type:'sms', label:'Text', title:'Text after sending contract', body:`Hey [name] — just sent over the contract and deposit invoice to [email]. Should be a few minutes. Let me know if anything looks off!`},
+      {type:'sms', label:'Text', title:'Nudge if contract unsigned after 24hrs', body:`Hey [name] — just wanted to make sure the contract didn't land in spam. Let me know if you need me to resend it!`},
+      {type:'sms', label:'Text', title:'Confirm deposit received + send onboarding', body:`Hey [name] — got the deposit, thank you! Just sent the onboarding form to your email. Fill it out whenever you get a chance — no rush, but the sooner I have it the sooner we're live 🙌`},
+    ]
+  },
+  {
+    id:'p4', label:'Build', sub:'Onboarding form to launch-ready', cls:'ph-p4',
+    tasks:[
+      {id:'p4a', t:'Set up their GHL sub-account', h:'Business info, SMS number, calendar if needed. Name it "[Business Name] — [Your Agency Name]".'},
+      {id:'p4b', t:'Build website in GHL AI Studio', h:'Brand colors, logo, services from onboarding form. 5 sections max. Mobile-first always.'},
+      {id:'p4c', t:'Set up automations (chatbot, review requests, missed-call-text-back)', h:'After-hours chatbot, post-visit review text (Tier 2+), missed-call text-back (Tier 2+).'},
+      {id:'p4d', t:'Set up GHL Client App for the owner', h:'Sub-account → Settings → Mobile App → white-label → send download link.'},
+      {id:'p4e', t:'Test EVERYTHING yourself before client sees it', h:'Fill their form. Trigger chatbot. Check review request fires. Test client app login.'},
+      {id:'p4f', t:'Do an internal quality check — would you be proud to show this?', h:'Real question. If anything feels off, fix it now. This is your reputation.'},
+      {id:'p4g', t:'Schedule launch walkthrough call', h:'30 minutes. Walk them through everything live.'},
+    ],
+    messages:[
+      {type:'sms', label:'Text', title:'Check in mid-build (day 3–4)', body:`Hey [name] — build is going well! On track for launch [date]. I'll reach out when it's time to schedule our walkthrough call. Anything you forgot to add to the form?`},
+      {type:'sms', label:'Text', title:'Request any missing info', body:`Hey [name] — quick question: do you have a [logo / brand colors / photos] you want on the site? I can work with what I have but wanted to check first.`},
+      {type:'sms', label:'Text', title:'Ready to launch — schedule walkthrough', body:`Hey [name] — everything is built and tested! Ready to do our 30-min walkthrough call where I show you how everything works. When works for you this week? [Calendly link]`},
+    ]
+  },
+  {
+    id:'p5', label:'Launch & handoff', sub:'Make them feel the win', cls:'ph-p5',
+    tasks:[
+      {id:'p5a', t:'Collect final 50% on launch day — BEFORE handing over access', h:'Send the Zoho invoice the morning of the walkthrough. Confirm it\'s paid before the call.'},
+      {id:'p5b', t:'Do 30-min walkthrough call — show everything live', h:'Site, chatbot, where leads appear in GHL, Client App. Walk them through the app download live on the call.'},
+      {id:'p5c', t:'Send "How It Works" 1-pager right after the call', h:'Template in the Playbook → Client Templates tab. Personalize the header.'},
+      {id:'p5d', t:'Set up recurring monthly retainer invoice in Zoho', h:'Auto-charges on the 1st. Do this during or right after the call while you\'re both in it.'},
+      {id:'p5e', t:'Ask for a Google review right after the launch call', h:'"If you\'re happy with how everything looks, a quick Google review really helps my business."'},
+      {id:'p5f', t:'Send Week 1 check-in text on day 7', h:'"Hey [name] — checking in! How\'s everything running?"'},
+    ],
+    messages:[
+      {type:'email', label:'Email', title:'Launch day email', body:`Subject: [Business Name] is live! 🎉\n\nHey [First Name] — you're live! Here's everything now running:\n\n✅ Website: [URL]\n✅ AI chatbot — answering 24/7\n✅ Review requests — automated after every visit\n✅ Lead capture + instant auto-response\n✅ GHL Client App: [LINK]\n\nLet's do our 30-min walkthrough: [CALENDAR LINK]\n\nI'll send the final invoice today.\n\n— [Your name] | [Number]`},
+      {type:'sms', label:'Text', title:'Ask for Google review', body:`Hey [name] — so glad it's live! If you're happy with everything, would you mind leaving me a quick Google review? It really helps. Here's the link: [your Google review link] 🙏`},
+      {type:'sms', label:'Text', title:'Week 1 check-in (day 7)', body:`Hey [name] — checking in! How's everything running? Any questions or anything you'd like tweaked?`},
+      {type:'sms', label:'Text', title:'Referral ask (day 10)', body:`Hey [name] — glad things are up and running. I'm looking to bring on a couple more local businesses this month. If you know any business owners who might find this useful, I'd love an intro. Happy to do a free audit for anyone you send my way!`},
+    ]
+  },
+  {
+    id:'p6', label:'Monthly service', sub:'Keep them happy, growing, and paying', cls:'ph-p6',
+    tasks:[
+      {id:'p6a', t:'Send monthly results snapshot on the 1st', h:'Leads captured, new reviews, chatbot chats. Takes 5 min. Reminds them it\'s working.'},
+      {id:'p6b', t:'Track change requests and time spent', h:'If they regularly hit the included hour, that\'s your upgrade conversation.'},
+      {id:'p6c', t:'Quarterly 15-min check-in call', h:'What\'s working, what\'s changed. Plant the upgrade seed.'},
+      {id:'p6d', t:'Pitch tier upgrade at 90 days', h:'"Based on what I\'m seeing, I think you\'d get a lot out of adding [X]."'},
+      {id:'p6e', t:'Roll to month-to-month after 3-month minimum', h:'"Everything\'s great — want to keep going month-to-month?" Almost everyone says yes.'},
+      {id:'p6f', t:'Ask for 60-sec video testimonial at 90 days', h:'"Would you record a quick video saying what you\'ve noticed? Casual, on your phone is fine."'},
+    ],
+    messages:[
+      {type:'sms', label:'Text', title:'Monthly results snapshot', body:`Hey [name] — quick look at [Month]:\n📥 [X] new leads captured\n⭐ [X] new Google reviews (now at [TOTAL])\n💬 [X] chatbot chats handled\nEverything running smoothly. Anything you'd like adjusted?`},
+      {type:'sms', label:'Text', title:'Upgrade pitch text', body:`Hey [name] — 3 months in and things are running well! I had a thought — [SPECIFIC UPGRADE] would probably make a real difference for your lead volume. Worth a quick 15-min call this week?`},
+      {type:'email', label:'Email', title:'Tier upgrade email (90 days)', body:`Subject: An idea for [Business Name] — month 4\n\nHey [First Name] — three months in and things are running well. Based on what I'm seeing, I think one thing would make a real difference: [SPECIFIC UPGRADE].\n\nWould add $[X]/month and take me [X] days. Worth a 15-min call? No pressure.\n\n— [Your name]`},
+      {type:'sms', label:'Text', title:'Video testimonial request', body:`Hey [name] — would you be up for recording a 60-second video on your phone just saying what you've noticed since we set things up? I'd use it on my website. No pressure — but if you're open to it I'd really appreciate it 🙏`},
+      {type:'sms', label:'Text', title:'Overage notice', body:`Hey [name] — happy to make those changes! Quick heads up: we've used the included [1/2] hour for this month, so the additional work runs at $[75–100]/hr. Should be about [X] hours — roughly $[AMOUNT]. Want me to go ahead?`},
+    ]
+  }
+];
+
+// ── UTILS ──────────────────────────────────────────────────────────
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function tierLabel(t){return{tier1:'Tier 1',tier2:'Tier 2',tier3:'Tier 3'}[t]||t}
+function tierClass(t){return{tier1:'t1',tier2:'t2',tier3:'t3'}[t]||'t1'}
+function statusLabel(s){return{prospect:'Prospect',negotiating:'Negotiating',building:'Building',live:'Live',monthly:'Monthly','at-risk':'At Risk',churned:'Churned'}[s]||s}
+function spClass(s){return{prospect:'sp-prospect',negotiating:'sp-negotiating',building:'sp-building',live:'sp-live',monthly:'sp-monthly','at-risk':'sp-at-risk',churned:'sp-churned'}[s]||'sp-prospect'}
+function dbSClass(s){return{prospect:'db-s-prospect',negotiating:'db-s-negotiating',building:'db-s-building',live:'db-s-live',monthly:'db-s-monthly','at-risk':'db-s-at-risk',churned:'db-s-churned'}[s]||'db-s-prospect'}
+function fmtDate(d){if(!d)return'';try{const dt=new Date(d+'T12:00:00');return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}catch{return d}}
+
+function progress(c){
+  const total=PHASES.reduce((a,p)=>a+p.tasks.length,0);
+  const done=Object.values(c.tasks||{}).filter(Boolean).length;
+  return total?Math.round(done/total*100):0;
+}
+function phaseProg(c,pid){
+  const p=PHASES.find(x=>x.id===pid);if(!p)return{done:0,total:0};
+  const done=p.tasks.filter(t=>c.tasks&&c.tasks[t.id]).length;
+  return{done,total:p.tasks.length};
+}
+function updateProg(c){
+  const pct=progress(c);
+  const pctEl=document.getElementById('dpct');
+  const fillEl=document.getElementById('dpfill');
+  if(pctEl)pctEl.textContent=pct+'%';
+  if(fillEl)fillEl.style.width=pct+'%';
+}
+
+function renderCountdown(c){
+  const el=document.getElementById('launch-countdown');
+  if(!el)return;
+  if(!c.launchDate){
+    el.style.display='block';
+    el.innerHTML=`<div class="countdown-bar"><div><div class="cd-label">Target launch</div><div class="cd-days" style="font-size:16px;color:#6b7280">No date set</div></div><div class="cd-right"><span class="cd-set" onclick="openEditProfile()">Set launch date</span></div></div>`;
+    return;
+  }
+  const now=new Date();now.setHours(0,0,0,0);
+  const launch=new Date(c.launchDate+'T00:00:00');launch.setHours(0,0,0,0);
+  const diff=Math.round((launch-now)/(1000*60*60*24));
+  const launched=c.status==='live'||c.status==='monthly';
+  let daysHtml,subHtml,labelHtml;
+  if(launched){
+    labelHtml='Client is live';
+    daysHtml=`<div class="cd-days cd-done">Live ✓</div>`;
+    subHtml=`Launched ${fmtDate(c.launchDate)}`;
+  } else if(diff<0){
+    labelHtml='Launch target';
+    daysHtml=`<div class="cd-days cd-overdue">${Math.abs(diff)}d overdue</div>`;
+    subHtml=`Was ${fmtDate(c.launchDate)} — update the date`;
+  } else if(diff===0){
+    labelHtml='Launch target';
+    daysHtml=`<div class="cd-days" style="color:#fcd34d">Today!</div>`;
+    subHtml='Launch day — get it live';
+  } else {
+    labelHtml='Days to launch';
+    daysHtml=`<div class="cd-days">${diff}</div>`;
+    subHtml=fmtDate(c.launchDate);
+  }
+  el.style.display='block';
+  el.innerHTML=`<div class="countdown-bar"><div><div class="cd-label">${labelHtml}</div>${daysHtml}<div class="cd-sub">${subHtml}</div></div><div class="cd-right"><span class="cd-set" onclick="openEditProfile()">Edit</span></div></div>`;
+}
 
 // ── SYNC STATUS ────────────────────────────────────────────────────
 function setSyncStatus(s){
   const el=document.getElementById('sync-status');
-  const map={synced:['✓ Synced','sy-gr'],saving:['↑ Saving','sy-am'],offline:['✗ Offline','sy-rd'],loading:['↓ Loading','sy-bl']};
-  if(el && map[s]) { el.className=map[s][1]; el.textContent=map[s][0]; }
+  const map={synced:['✓ Synced','sy-gr'],saving:['↑ Saving','sy-am'],offline:['⚡ Local','sy-am'],loading:['↓ Loading','sy-bl']};
+  if(el&&map[s]){el.className=map[s][1];el.textContent=map[s][0];}
 }
-
-// ── SAVE TO FIREBASE ───────────────────────────────────────────────
 function save(){
+  lsSave();
+  if(!fbReady){setSyncStatus('offline');return;}
   setSyncStatus('saving');
   clearTimeout(saveTimer);
   saveTimer=setTimeout(()=>{
@@ -296,172 +607,88 @@ function save(){
       .catch(()=>setSyncStatus('offline'));
   },800);
 }
+initFirebase();
 
-// ── REAL-TIME LISTENER ─────────────────────────────────────────────
-DOC.onSnapshot({includeMetadataChanges:true}, snap=>{
-  if(snap.exists){
-    clients = snap.data().clients || [];
-    renderList();
-    if(cid){
-      const c = clients.find(x=>x.id===cid);
-      if(c) { updateProg(c); renderPhases(c); renderInfo(c); updateHeroBadges(c); }
-    }
-    setSyncStatus('synced');
-  } else {
-    setSyncStatus('synced');
-  }
-}, () => setSyncStatus('offline'));
-
-// ── PHASE DEFINITIONS ──────────────────────────────────────────────
-const PHASES=[
-  {id:'p1',label:'Find & qualify',sub:'Before first contact',color:'#2563eb',tasks:[
-    {id:'a1',t:'Search Google Maps — look for under 50 reviews, no chatbot',h:'Start with "[business type] Huntington Beach" and note what their site looks like.'},
-    {id:'a2',t:'Count their Google reviews — note the exact number',h:'Drop this in your outreach. Signals you actually looked.'},
-    {id:'a3',t:'Fill out their contact form and time the response',h:'Over 30 min (or nothing) = your opening line in outreach.'},
-    {id:'a4',t:'Note one genuine observation about their business',h:'Something real — vibe, a service, a post. Goes in your DM. Don\'t skip this.'},
-  ]},
-  {id:'p2',label:'Make first contact',sub:'Outreach to booked call',color:'#7c3aed',tasks:[
-    {id:'b1',t:'Send DM or cold email using outreach template',h:'Pick angle: after-hours lead response vs. Google reviews. 5 sentences max on DMs.'},
-    {id:'b2',t:'Follow up after 5–7 days if no reply',h:'One follow-up is standard. Two is the max.'},
-    {id:'b3',t:'Book a 20-min demo call — call it a "quick look"',h:'Not a "sales call." Zoom or coffee in HB both work.'},
-    {id:'b4',t:'Prep your 2-min screen share or Loom demo',h:'Show an anonymized setup. Seeing it converts 3x better than describing it.'},
-  ]},
-  {id:'p3',label:'Run the demo call',sub:'20 minutes to a verbal yes',color:'#d97706',tasks:[
-    {id:'c1',t:'Open with 2 diagnostic questions — no pitch yet',h:'"How do most new customers find you?" and "What\'s your busiest time of week?"'},
-    {id:'c2',t:'Show demo and narrate why it matters to them specifically',h:'"This is what your customer sees at 10pm — instant reply, qualifying question, booking."'},
-    {id:'c3',t:'Ask: "Can you see this being useful for [their business]?"',h:'Soft close before pricing. Almost everyone says yes here.'},
-    {id:'c4',t:'Present ONE tier — the right one for what you heard',h:'"For a business like yours I\'d start here." Don\'t show all three.'},
-    {id:'c5',t:'State pricing clearly — then stop talking',h:'"Setup is $[X] and $[X]/mo — includes 1 hour of changes per month." Wait.'},
-    {id:'c6',t:'Confirm next steps before hanging up',h:'"I\'ll send contract and deposit invoice today. Done within a week."'},
-  ]},
-  {id:'p4',label:'Onboard & build',sub:'Deposit to live in 7 days',color:'#059669',tasks:[
-    {id:'d1',t:'Send contract + 50% deposit invoice — same day',h:'Don\'t start work until deposit clears. Zoho Invoice + Stripe.'},
-    {id:'d2',t:'Send onboarding form link',h:'Google Form: business info, services, brand, chatbot FAQs, Google login.'},
-    {id:'d3',t:'Set up their GHL sub-account',h:'Business info, SMS number, calendar if needed.'},
-    {id:'d4',t:'Build site in GHL AI Studio',h:'Brand colors, logo, services from onboarding. 5 sections max. Mobile-first.'},
-    {id:'d5',t:'Build automations: chatbot, review requests, follow-up',h:'After-hours chatbot, post-visit review text, missed-call-text-back (Tier 2+).'},
-    {id:'d6',t:'Test everything yourself before client sees it',h:'Fill the form. Trigger chatbot. Check review request fires. Find bugs first.'},
-    {id:'d7',t:'Collect final 50% on launch day — before handing over access',h:'After access is too late.'},
-  ]},
-  {id:'p5',label:'Launch & handoff',sub:'Make them feel the win',color:'#dc2626',tasks:[
-    {id:'e1',t:'Do 30-min walkthrough call at launch',h:'Show site, chatbot, where leads appear in GHL, and the Client App on their phone.'},
-    {id:'e2',t:'Send the "How It Works" 1-pager after the call',h:'From Client Templates in the Playbook.'},
-    {id:'e3',t:'Set up recurring monthly retainer invoice in Zoho',h:'Auto-charges on the 1st. Set up now while they\'re happy.'},
-    {id:'e4',t:'Ask for a Google review right after the launch call',h:'"If you\'re happy, a quick Google review really helps my business."'},
-    {id:'e5',t:'Send Week 1 check-in text on day 7',h:'"Hey [name] — checking in! How\'s everything running?"'},
-    {id:'e6',t:'Ask for a referral at the 30-day mark',h:'"I\'m looking to take on 2 more HB businesses this month — know anyone?"'},
-  ]},
-  {id:'p6',label:'Monthly service',sub:'Keep them happy and paying',color:'#0891b2',tasks:[
-    {id:'f1',t:'Send monthly results snapshot text on the 1st',h:'Leads, new reviews, chatbot chats. 5 minutes. Reminds them it\'s working.'},
-    {id:'f2',t:'Track change requests and time spent',h:'If they regularly hit the included hour, that\'s your upgrade conversation.'},
-    {id:'f3',t:'Quarterly 15-min check-in call',h:'What\'s working, what\'s changed, plant upgrade seed.'},
-    {id:'f4',t:'Pitch tier upgrade at 90 days',h:'"Based on what I\'m seeing, I think you\'d get a lot out of adding [X]."'},
-    {id:'f5',t:'Roll to month-to-month after 3-month minimum',h:'"Everything\'s great — want to keep going month-to-month?" Almost everyone says yes.'},
-    {id:'f6',t:'Ask for 60-sec video testimonial at 90 days',h:'"Would you record a quick video saying what you\'ve noticed?"'},
-  ]}
-];
-
-// ── UTILS ──────────────────────────────────────────────────────────
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function tierLabel(t){return{tier1:'Tier 1',tier2:'Tier 2',tier3:'Tier 3'}[t]||t}
-function tierClass(t){return{tier1:'t1',tier2:'t2',tier3:'t3'}[t]||'t1'}
-function statusLabel(s){return{new:'New',building:'Building',live:'Live',monthly:'Monthly',churned:'Churned'}[s]||s}
-function spClass(s){return{new:'sp-new',building:'sp-building',live:'sp-live',monthly:'sp-monthly',churned:'sp-churned'}[s]||'sp-new'}
-function dbSClass(s){return{new:'db-s-new',building:'db-s-building',live:'db-s-live',monthly:'db-s-monthly',churned:'db-s-churned'}[s]||'db-s-new'}
-
-function progress(c){
-  const total=PHASES.reduce((a,p)=>a+p.tasks.length,0);
-  const done=Object.values(c.tasks||{}).filter(Boolean).length;
-  return total?Math.round(done/total*100):0;
-}
-
-function phaseProg(c,pid){
-  const p=PHASES.find(x=>x.id===pid);if(!p)return{done:0,total:0};
-  const done=p.tasks.filter(t=>c.tasks && c.tasks[t.id]).length;
-  return{done,total:p.tasks.length};
-}
-
-function updateProg(c){
-  const pct=progress(c);
-  const pctEl = document.getElementById('dpct');
-  const fillEl = document.getElementById('dpfill');
-  if(pctEl) pctEl.textContent=pct+'%';
-  if(fillEl) fillEl.style.width=pct+'%';
-}
-
-// ── LIST & TIER FILTERING ──────────────────────────────────────────
-function setTierFilter(tier){
-  currentTierFilter = tier;
-  document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
-  document.getElementById('fchip-' + tier).classList.add('active');
+// ── FILTER & SEARCH ────────────────────────────────────────────────
+function setFilter(type,val){
+  if(type==='tier') tierFilter=val;
+  if(type==='status') statusFilter=val;
+  document.querySelectorAll('.filter-row').forEach(row=>{
+    row.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  });
+  const tid=type==='tier'?'fchip-'+val:'schip-'+val;
+  const el=document.getElementById(tid);
+  if(el)el.classList.add('active');
   renderList();
 }
-
-function setSearchQuery(v){
-  currentSearchQuery = v;
-  renderList();
-}
+function setSearchQuery(v){searchQ=v;renderList();}
 
 function renderList(){
   const el=document.getElementById('clist');
   const cc=document.getElementById('ccount');
   const ts=document.getElementById('ts');
-  if(!el) return;
-  
-  let vis = clients;
-  
-  // Filter by Tier Option
-  if(currentTierFilter !== 'all'){
-    vis = vis.filter(c => c.tier === currentTierFilter);
-  }
-  
-  // Filter by Input String
-  if(currentSearchQuery){
-    const lq = currentSearchQuery.toLowerCase();
-    vis = vis.filter(c=>c.name.toLowerCase().includes(lq)||(c.owner||'').toLowerCase().includes(lq)||(c.type||'').toLowerCase().includes(lq));
-  }
-  
-  if(cc) cc.textContent=clients.length+' client'+(clients.length!==1?'s':'');
-  if(ts) ts.textContent=clients.length+' client'+(clients.length!==1?'s':'')+' total';
-  
+  if(!el)return;
+  let vis=clients;
+  if(tierFilter!=='all') vis=vis.filter(c=>c.tier===tierFilter);
+  if(statusFilter!=='all') vis=vis.filter(c=>c.status===statusFilter);
+  if(searchQ){const lq=searchQ.toLowerCase();vis=vis.filter(c=>c.name.toLowerCase().includes(lq)||(c.owner||'').toLowerCase().includes(lq)||(c.type||'').toLowerCase().includes(lq));}
+  if(cc)cc.textContent=clients.length+' client'+(clients.length!==1?'s':'');
+  if(ts)ts.textContent=clients.length+' client'+(clients.length!==1?'s':'')+' total';
   if(!clients.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">🏄</div><div class="empty-title">No clients yet</div><div class="empty-sub">Add your first client to get tracking!</div><button class="empty-btn" onclick="openNew()">Add your first client</button></div>`;
+    el.innerHTML=`<div class="empty"><div class="empty-icon">🏄</div><div class="empty-title">No clients yet</div><div class="empty-sub">Add your first client to start tracking their journey.</div><button class="empty-btn" onclick="openNew()">Add your first client</button></div>`;
     return;
   }
-  if(!vis.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">No matches</div><div class="empty-sub">Try adjusting your filters or search terms.</div></div>`;return}
-  
+  if(!vis.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">No matches</div><div class="empty-sub">Try adjusting your filters or search.</div></div>`;return;}
   el.innerHTML=vis.map(c=>{
     const pct=progress(c);
+    const nextTask=getNextTask(c);
+    let cdChip='';
+    if(c.launchDate&&c.status!=='live'&&c.status!=='monthly'&&c.status!=='churned'){
+      const now=new Date();now.setHours(0,0,0,0);
+      const launch=new Date(c.launchDate+'T00:00:00');launch.setHours(0,0,0,0);
+      const diff=Math.round((launch-now)/(1000*60*60*24));
+      if(diff<0) cdChip=`<span style="font-size:11px;font-weight:700;background:var(--rd-bg);color:var(--rd);padding:2px 8px;border-radius:10px">${Math.abs(diff)}d overdue</span>`;
+      else if(diff===0) cdChip=`<span style="font-size:11px;font-weight:700;background:var(--am-bg);color:var(--am);padding:2px 8px;border-radius:10px">Launch today!</span>`;
+      else cdChip=`<span style="font-size:11px;font-weight:600;color:var(--tx4)">${diff}d to launch</span>`;
+    }
     return`<div class="client-card ${c.tier}" onclick="openClient('${c.id}')">
       <div class="cc-top"><div class="cc-name">${esc(c.name)}</div><span class="cc-tier ${tierClass(c.tier)}">${tierLabel(c.tier)}</span></div>
-      <div class="cc-meta">${[c.owner,c.type,c.monthly?c.monthly+'/mo':''].filter(Boolean).join(' · ')}</div>
+      <div class="cc-meta">${[c.owner,c.type,c.monthly?c.monthly+'/mo':''].filter(Boolean).join(' \xb7 ')}</div>
       <div class="cc-bar"><div class="cc-fill" style="width:${pct}%"></div></div>
-      <div class="cc-footer"><span class="sp ${spClass(c.status||'new')}">${statusLabel(c.status||'new')}</span><span style="font-size:12px;color:var(--tx4)">${pct}% · →</span></div>
+      <div class="cc-footer"><span class="sp ${spClass(c.status||'prospect')}">${statusLabel(c.status||'prospect')}</span><div style="display:flex;align-items:center;gap:8px">${cdChip}<span style="font-size:12px;color:var(--tx4)">${pct}% \xb7 \u2192</span></div></div>
+      ${nextTask?`<div class="cc-next">\u21b3 Next: ${esc(nextTask)}</div>`:''}
     </div>`;
   }).join('');
 }
 
-// ── DETAIL VIEW MANAGEMENT ─────────────────────────────────────────
+function getNextTask(c){
+  for(const ph of PHASES){
+    for(const task of ph.tasks){
+      if(!c.tasks||!c.tasks[task.id])return task.t;
+    }
+  }
+  return null;
+}
+
+// ── DETAIL VIEW ────────────────────────────────────────────────────
 function openClient(id){
   cid=id;const c=clients.find(x=>x.id===id);if(!c)return;
   document.getElementById('dn').textContent=c.name;
   document.getElementById('dm').textContent=[c.owner,c.type,c.phone].filter(Boolean).join(' · ');
-  updateHeroBadges(c);
-  updateProg(c);
+  updateHeroBadges(c);updateProg(c);
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));
   document.querySelectorAll('.tab-body').forEach((t,i)=>t.classList.toggle('active',i===0));
-  renderPhases(c);renderInfo(c);
+  renderPhases(c);renderInfo(c);renderTimeline(c);renderRevenue(c);loadNotes(c);renderCountdown(c);
   document.getElementById('vlist').classList.remove('active');
   document.getElementById('vdetail').classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
 }
 
 function updateHeroBadges(c){
-  const s=c.status||'new';
-  const dbEl = document.getElementById('db');
+  const s=c.status||'prospect';
+  const dbEl=document.getElementById('db');
   if(dbEl){
-    dbEl.innerHTML=`<span class="db db-tier">${tierLabel(c.tier)}</span><span class="db ${dbSClass(s)}">${statusLabel(s)}</span>${c.monthly?`<span class="db db-tier">${esc(c.monthly)}/mo</span>`:''}`;
+    dbEl.innerHTML=`<span class="db db-tier">${tierLabel(c.tier)}</span><span class="db ${dbSClass(s)}">${statusLabel(s)}</span>${c.monthly?`<span class="db db-tier">${esc(c.monthly)}/mo</span>`:''}${c.startDate?`<span class="db" style="background:rgba(255,255,255,.08);color:#9ca3af">Started ${fmtDate(c.startDate)}</span>`:''}`;
   }
 }
 
@@ -477,28 +704,37 @@ function stab(btn,id){
   btn.classList.add('active');document.getElementById(id).classList.add('active');
 }
 
-// ── PHASES & TASKS (COLLAPSIBLE ACCORDION) ──────────────────────────
+// ── PHASES & TASKS ────────────────────────────────────────────────
 function renderPhases(c){
-  const el = document.getElementById('phases');
-  if(!el) return;
-  el.innerHTML=PHASES.map((ph,pi)=>{
+  const el=document.getElementById('phases');
+  if(!el)return;
+  el.innerHTML=PHASES.map(ph=>{
     const pg=phaseProg(c,ph.id);
-    const isCollapsed = collapsedPhases[ph.id] === true;
-    
-    const taskListHtml = ph.tasks.map(task=>{
-      const isDone = c.tasks && c.tasks[task.id];
-      return `<div class="task">
-        <div class="cb ${isDone?'done':''}" onclick="event.stopPropagation(); toggleTask('${c.id}','${task.id}')"></div>
+    const isCollapsed=collapsedPhases[ph.id]===true;
+    const taskHtml=ph.tasks.map(task=>{
+      const isDone=c.tasks&&c.tasks[task.id];
+      return`<div class="task">
+        <div class="cb ${isDone?'done':''}" onclick="event.stopPropagation();toggleTask('${c.id}','${task.id}')"></div>
         <div class="task-r">
           <div class="task-title ${isDone?'done':''}">${esc(task.t)}</div>
           <div class="task-hint">${esc(task.h)}</div>
         </div>
       </div>`;
     }).join('');
-
-    return `<div class="phase">
-      <div class="phase-hdr ${ph.id}-hdr ${!isCollapsed?'open':''}" onclick="togglePhaseVisibility('${ph.id}')">
-        <div>
+    const msgHtml=ph.messages?(ph.messages.map((msg,mi)=>{
+      const midKey=ph.id+'-msg-'+mi;
+      return`<div class="msg-template">
+        <div class="msg-hdr" onclick="toggleMsg('${midKey}')">
+          <span class="msg-label msg-label-${msg.type}">${msg.label}</span>
+          <span class="msg-title">${esc(msg.title)}</span>
+          <button class="msg-copy" onclick="event.stopPropagation();copyMsg('${midKey}')">Copy</button>
+        </div>
+        <div class="msg-body" id="${midKey}">${esc(msg.body)}</div>
+      </div>`;
+    }).join('')):'';
+    return`<div class="phase">
+      <div class="phase-hdr ${ph.cls} ${!isCollapsed?'open':''}" onclick="togglePhase('${ph.id}')">
+        <div class="phase-left">
           <div class="phase-title-text">${esc(ph.label)}</div>
           <div class="phase-sub-text">${esc(ph.sub)}</div>
         </div>
@@ -507,137 +743,204 @@ function renderPhases(c){
           <div class="phase-chevron ${!isCollapsed?'open':''}">▲</div>
         </div>
       </div>
-      <div class="phase-body ${!isCollapsed?'open':''}">${taskListHtml}</div>
+      <div class="phase-body ${!isCollapsed?'open':''}">
+        ${taskHtml}
+        ${msgHtml?`<div style="padding-top:4px;padding-bottom:2px"><div style="font-size:11px;font-weight:700;color:var(--tx4);text-transform:uppercase;letter-spacing:.05em;padding:8px 13px 6px">Message templates</div>${msgHtml}</div>`:''}
+      </div>
     </div>`;
   }).join('');
 }
 
-function togglePhaseVisibility(phaseId) {
-  collapsedPhases[phaseId] = !collapsedPhases[phaseId];
-  localStorage.setItem('collapsedPhases', JSON.stringify(collapsedPhases)); // Persist locally!
-  const c = clients.find(x=>x.id===cid);
-  if(c) renderPhases(c);
+function togglePhase(id){
+  collapsedPhases[id]=!collapsedPhases[id];
+  localStorage.setItem('cbCollapsed',JSON.stringify(collapsedPhases));
+  const c=clients.find(x=>x.id===cid);
+  if(c)renderPhases(c);
+}
+function toggleTask(clientId,taskId){
+  const c=clients.find(x=>x.id===clientId);if(!c)return;
+  if(!c.tasks)c.tasks={};
+  c.tasks[taskId]=!c.tasks[taskId];
+  renderPhases(c);updateProg(c);save();
+}
+function toggleMsg(id){
+  const el=document.getElementById(id);
+  if(el)el.classList.toggle('open');
+}
+function copyMsg(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const text=el.innerText.trim();
+  const done=()=>{};
+  navigator.clipboard?navigator.clipboard.writeText(text).then(done).catch(()=>{}):(() => {const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);})();
 }
 
-function toggleTask(clientId, taskId) {
-  const c = clients.find(x=>x.id===clientId);
-  if(!c) return;
-  if(!c.tasks) c.tasks = {};
-  c.tasks[taskId] = !c.tasks[taskId];
-  renderPhases(c);
-  updateProg(c);
-  save();
+// ── NOTES ─────────────────────────────────────────────────────────
+function loadNotes(c){
+  const el=document.getElementById('notes-field');
+  if(el)el.value=c.notes||'';
+}
+function autoSaveNotes(){
+  const c=clients.find(x=>x.id===cid);if(!c)return;
+  c.notes=document.getElementById('notes-field').value;
+  clearTimeout(notesTimer);
+  notesTimer=setTimeout(()=>save(),1200);
 }
 
-function renderInfo(c){
-  const el = document.getElementById('ilist');
-  if(!el) return;
-  el.innerHTML = `<div class="info-card">
-    <div class="info-section-title">Client Profile Details</div>
-    <div class="info-row"><span class="info-key">Business Name</span><span class="info-val">${esc(c.name || '—')}</span></div>
-    <div class="info-row"><span class="info-key">Owner Name</span><span class="info-val">${esc(c.owner || '—')}</span></div>
-    <div class="info-row"><span class="info-key">Email</span><span class="info-val">${esc(c.email || '—')}</span></div>
-    <div class="info-row"><span class="info-key">Phone</span><span class="info-val">${esc(c.phone || '—')}</span></div>
-    <div class="info-row"><span class="info-key">Business Type</span><span class="info-val">${esc(c.type || '—')}</span></div>
-    <div class="info-row"><span class="info-key">Service Tier</span><span class="info-val">${tierLabel(c.tier)}</span></div>
-    <div class="info-row"><span class="info-key">Setup Fee</span><span class="info-val">${esc(c.setup || '—')}</span></div>
-    <div class="info-row"><span class="info-key">Retainer</span><span class="info-val">${esc(c.monthly || '—')}</span></div>
+// ── TIMELINE ──────────────────────────────────────────────────────
+function renderTimeline(c){
+  const el=document.getElementById('timeline-list');if(!el)return;
+  const events=(c.timeline||[]).slice().reverse();
+  if(!events.length){el.innerHTML='<div style="font-size:13px;color:var(--tx4);padding:4px 0 12px">No events yet. Add milestones as they happen.</div>';return;}
+  el.innerHTML=events.map((ev,i)=>`
+    <div class="timeline-item">
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <div class="tl-title">${esc(ev.title)}</div>
+        <div class="tl-date">${fmtDate(ev.date)}</div>
+      </div>
+    </div>`).join('');
+}
+function openAddEvent(){document.getElementById('ev-title').value='';document.getElementById('ev-date').value=new Date().toISOString().split('T')[0];document.getElementById('event-overlay').classList.add('open');}
+function closeEventModal(){document.getElementById('event-overlay').classList.remove('open');}
+function saveEvent(){
+  const title=document.getElementById('ev-title').value.trim();
+  const date=document.getElementById('ev-date').value;
+  if(!title)return;
+  const c=clients.find(x=>x.id===cid);if(!c)return;
+  if(!c.timeline)c.timeline=[];
+  c.timeline.push({title,date,id:uid()});
+  renderTimeline(c);closeEventModal();save();
+}
+
+// ── REVENUE PANEL ──────────────────────────────────────────────────
+function renderRevenue(c){
+  const el=document.getElementById('rev-panel');if(!el)return;
+  const setup=parseFloat((c.setup||'').replace(/[^0-9.]/g,''))||0;
+  const monthly=parseFloat((c.monthly||'').replace(/[^0-9.]/g,''))||0;
+  const monthsActive=c.startDate?Math.max(0,Math.floor((Date.now()-new Date(c.startDate+'T12:00:00').getTime())/(1000*60*60*24*30))):0;
+  const ltv=setup+(monthly*monthsActive);
+  el.innerHTML=`<div class="rev-card">
+    <div class="info-section-title">Revenue summary</div>
+    <div class="rev-row"><span class="rev-label">Setup fee</span><span class="rev-val">${c.setup||'—'}</span></div>
+    <div class="rev-row"><span class="rev-label">Monthly retainer</span><span class="rev-val">${c.monthly||'—'}</span></div>
+    <div class="rev-row"><span class="rev-label">Start date</span><span class="rev-val">${fmtDate(c.startDate)||'—'}</span></div>
+    <div class="rev-row"><span class="rev-label">Months active</span><span class="rev-val">${monthsActive||'—'}</span></div>
+    <div class="rev-row" style="border-top:2px solid var(--bdr2);margin-top:4px;padding-top:10px"><span style="font-weight:700">Estimated LTV</span><span class="rev-val">$${ltv.toLocaleString()}</span></div>
   </div>`;
 }
 
-// ── MODAL INTERACTIONS FOR ADDING & EDITING ───────────────────────
+// ── INFO TAB ──────────────────────────────────────────────────────
+function renderInfo(c){
+  const el=document.getElementById('ilist');if(!el)return;
+  el.innerHTML=`<div class="info-card">
+    <div class="info-section-title">Client profile</div>
+    <div class="info-row"><span class="info-key">Business</span><span class="info-val">${esc(c.name||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Owner</span><span class="info-val">${esc(c.owner||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Email</span><span class="info-val">${esc(c.email||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Phone</span><span class="info-val">${esc(c.phone||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Business type</span><span class="info-val">${esc(c.type||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Source</span><span class="info-val">${esc(c.source||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Tier</span><span class="info-val">${tierLabel(c.tier)}</span></div>
+    <div class="info-row"><span class="info-key">Status</span><span class="info-val">${statusLabel(c.status||'prospect')}</span></div>
+    <div class="info-row"><span class="info-key">Setup fee</span><span class="info-val">${esc(c.setup||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Monthly</span><span class="info-val">${esc(c.monthly||'—')}</span></div>
+    <div class="info-row"><span class="info-key">Start date</span><span class="info-val">${fmtDate(c.startDate)||'—'}</span></div>
+    <div class="info-row"><span class="info-key">Target launch</span><span class="info-val">${fmtDate(c.launchDate)||'—'}</span></div>
+  </div>`;
+}
+
+// ── MODAL: ADD / EDIT CLIENT ───────────────────────────────────────
 function openNew(){
-  document.getElementById('mtitle').textContent = "New client";
-  document.getElementById('mprimary-btn').textContent = "Add client";
-  document.getElementById('edit-id').value = "";
-  document.getElementById('fn').value = "";
-  document.getElementById('fo').value = "";
-  document.getElementById('fp').value = "";
-  document.getElementById('fe').value = "";
-  document.getElementById('ft').value = "";
-  document.getElementById('ftr').value = "tier1";
-  document.getElementById('fstatus').value = "new";
-  document.getElementById('fsu').value = "";
-  document.getElementById('fmo').value = "";
+  document.getElementById('mtitle').textContent='New client';
+  document.getElementById('mprimary-btn').textContent='Add client';
+  document.getElementById('edit-id').value='';
+  ['fn','fo','fp','fe','ft','fsource','fsu','fmo','fstart','flaunch'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ftr').value='tier1';
+  document.getElementById('fstatus').value='prospect';
+  document.getElementById('delete-row').innerHTML='';
   document.getElementById('overlay').classList.add('open');
 }
-
 function openEditProfile(){
-  const c = clients.find(x=>x.id===cid);
-  if(!c) return;
-  
-  document.getElementById('mtitle').textContent = "Edit client info";
-  document.getElementById('mprimary-btn').textContent = "Save changes";
-  document.getElementById('edit-id').value = c.id;
-  document.getElementById('fn').value = c.name || '';
-  document.getElementById('fo').value = c.owner || '';
-  document.getElementById('fp').value = c.phone || '';
-  document.getElementById('fe').value = c.email || '';
-  document.getElementById('ft').value = c.type || '';
-  document.getElementById('ftr').value = c.tier || 'tier1';
-  document.getElementById('fstatus').value = c.status || 'new';
-  document.getElementById('fsu').value = c.setup || '';
-  document.getElementById('fmo').value = c.monthly || '';
+  const c=clients.find(x=>x.id===cid);if(!c)return;
+  document.getElementById('mtitle').textContent='Edit client info';
+  document.getElementById('mprimary-btn').textContent='Save changes';
+  document.getElementById('edit-id').value=c.id;
+  document.getElementById('fn').value=c.name||'';
+  document.getElementById('fo').value=c.owner||'';
+  document.getElementById('fp').value=c.phone||'';
+  document.getElementById('fe').value=c.email||'';
+  document.getElementById('ft').value=c.type||'';
+  document.getElementById('fsource').value=c.source||'';
+  document.getElementById('ftr').value=c.tier||'tier1';
+  document.getElementById('fstatus').value=c.status||'prospect';
+  document.getElementById('fsu').value=c.setup||'';
+  document.getElementById('fmo').value=c.monthly||'';
+  document.getElementById('fstart').value=c.startDate||'';
+  document.getElementById('flaunch').value=c.launchDate||'';
+  document.getElementById('delete-row').innerHTML=`<button class="btn-danger" onclick="deleteClient('${c.id}')">🗑 Delete this client</button>`;
   document.getElementById('overlay').classList.add('open');
 }
+function closeModal(){document.getElementById('overlay').classList.remove('open');}
+function outsideClose(e){if(e.target&&e.target.id==='overlay')closeModal();}
 
-function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
-function outsideClose(e){ if(e.target && e.target.id === 'overlay') closeModal(); }
-
-// ── SAVE / UPDATE CLIENT ENGINE ────────────────────────────────────
 function saveClient(){
-  const name = document.getElementById('fn').value.trim();
-  const owner = document.getElementById('fo').value.trim();
-  if(!name || !owner) { alert("Business name and Owner name are required!"); return; }
-  
-  const editId = document.getElementById('edit-id').value;
-  
-  if(editId) {
-    // Modify existing profile
-    const c = clients.find(x=>x.id===editId);
+  const name=document.getElementById('fn').value.trim();
+  const owner=document.getElementById('fo').value.trim();
+  if(!name||!owner){alert('Business name and Owner name are required.');return;}
+  const editId=document.getElementById('edit-id').value;
+  if(editId){
+    const c=clients.find(x=>x.id===editId);
     if(c){
-      c.name = name;
-      c.owner = owner;
-      c.phone = document.getElementById('fp').value;
-      c.email = document.getElementById('fe').value;
-      c.type = document.getElementById('ft').value;
-      c.tier = document.getElementById('ftr').value;
-      c.status = document.getElementById('fstatus').value;
-      c.setup = document.getElementById('fsu').value;
-      c.monthly = document.getElementById('fmo').value;
+      c.name=name;c.owner=owner;
+      c.phone=document.getElementById('fp').value;
+      c.email=document.getElementById('fe').value;
+      c.type=document.getElementById('ft').value;
+      c.source=document.getElementById('fsource').value;
+      c.tier=document.getElementById('ftr').value;
+      c.status=document.getElementById('fstatus').value;
+      c.setup=document.getElementById('fsu').value;
+      c.monthly=document.getElementById('fmo').value;
+      c.startDate=document.getElementById('fstart').value;
+      c.launchDate=document.getElementById('flaunch').value;
     }
   } else {
-    // Create new profile
-    const newC = {
-      id: uid(),
-      name,
-      owner,
-      phone: document.getElementById('fp').value,
-      email: document.getElementById('fe').value,
-      type: document.getElementById('ft').value,
-      tier: document.getElementById('ftr').value,
-      setup: document.getElementById('fsu').value,
-      monthly: document.getElementById('fmo').value,
-      status: document.getElementById('fstatus').value,
-      tasks: {}
-    };
-    clients.push(newC);
+    clients.push({
+      id:uid(),name,owner,
+      phone:document.getElementById('fp').value,
+      email:document.getElementById('fe').value,
+      type:document.getElementById('ft').value,
+      source:document.getElementById('fsource').value,
+      tier:document.getElementById('ftr').value,
+      status:document.getElementById('fstatus').value,
+      setup:document.getElementById('fsu').value,
+      monthly:document.getElementById('fmo').value,
+      startDate:document.getElementById('fstart').value,
+      launchDate:document.getElementById('flaunch').value,
+      tasks:{},timeline:[],notes:''
+    });
   }
-  
-  closeModal();
-  renderList();
-  if(cid) {
-    const updatedClient = clients.find(x=>x.id===cid);
-    if(updatedClient) {
-      document.getElementById('dn').textContent=updatedClient.name;
-      document.getElementById('dm').textContent=[updatedClient.owner,updatedClient.type,updatedClient.phone].filter(Boolean).join(' · ');
-      updateHeroBadges(updatedClient);
-      renderPhases(updatedClient);
-      renderInfo(updatedClient);
+  closeModal();renderList();
+  if(cid){
+    const c=clients.find(x=>x.id===cid);
+    if(c){
+      document.getElementById('dn').textContent=c.name;
+      document.getElementById('dm').textContent=[c.owner,c.type,c.phone].filter(Boolean).join(' · ');
+      updateHeroBadges(c);renderPhases(c);renderInfo(c);renderRevenue(c);renderCountdown(c);
     }
   }
   save();
 }
+
+function deleteClient(id){
+  if(!confirm('Delete this client? This cannot be undone.'))return;
+  clients=clients.filter(x=>x.id!==id);
+  closeModal();
+  goBack();
+  save();
+}
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>
